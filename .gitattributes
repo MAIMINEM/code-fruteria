@@ -1,0 +1,13 @@
+# Use custom diff drivers for better language support
+*.js diff=javascript
+*.ts diff=typescript
+*.tsx diff=typescript
+*.css diff=css
+*.less diff=css
+*.md diff=markdown
+*.json diff=json
+*.yml diff=yaml
+*.yaml diff=yaml
+
+# Ignore whitespace changes in diffs and merges
+diff --ignore-space-at-eol
