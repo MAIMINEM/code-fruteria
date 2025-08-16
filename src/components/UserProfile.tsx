@@ -58,7 +58,11 @@ interface UserPopoverProps {
 }
 
 // Update the component signature:
-const UserProfile: React.FC<UserProfileProps> = ({ onLogout, onThemeToggle, theme }) => {
+const UserProfile: React.FC<UserProfileProps> = ({
+  onLogout,
+  onThemeToggle,
+  theme,
+}) => {
   const [visible, setVisible] = useState(false);
 
   // You can fetch/display real user info here if available
@@ -70,17 +74,28 @@ const UserProfile: React.FC<UserProfileProps> = ({ onLogout, onThemeToggle, them
   const handleOpen = () => setVisible(true);
   const handleClose = () => setVisible(false);
 
-  const UserPopover: React.FC<UserPopoverProps> = ({ userInfo, onLogout, onCancel, onThemeToggle, theme }) => (
+  const UserPopover: React.FC<UserPopoverProps> = ({
+    userInfo,
+    onLogout,
+    onCancel,
+    onThemeToggle,
+    theme,
+  }) => (
     <div style={popoverContainerStyle}>
       <Typography.Text strong style={{ fontSize: 18, color: "#f5f6fa" }}>
         {userInfo.name}
       </Typography.Text>
       <br />
-      <Typography.Text type="secondary" style={{ fontSize: 14, color: "#b0b4c1" }}>
+      <Typography.Text
+        type="secondary"
+        style={{ fontSize: 14, color: "#b0b4c1" }}
+      >
         {userInfo.email}
       </Typography.Text>
       <div style={dividerStyle} />
-      <div style={{ marginBottom: 16, fontSize: 15, color: "#b0b4c1" }}>Do you want to log out?</div>
+      <div style={{ marginBottom: 16, fontSize: 15, color: "#b0b4c1" }}>
+        Do you want to log out?
+      </div>
       <Button
         type="primary"
         block
@@ -113,7 +128,14 @@ const UserProfile: React.FC<UserProfileProps> = ({ onLogout, onThemeToggle, them
   );
 
   return (
-    <div className="top-bar" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+    <div
+      className="top-bar"
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
       {/* ...existing code for left/middle of top bar... */}
       <div style={{ marginLeft: "auto" }}>
         <Button
@@ -144,7 +166,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ onLogout, onThemeToggle, them
           }}
           onClick={handleClose}
         >
-          <div style={{ pointerEvents: "auto" }} onClick={(e) => e.stopPropagation()}>
+          <div
+            style={{ pointerEvents: "auto" }}
+            onClick={(e) => e.stopPropagation()}
+          >
             <UserPopover
               userInfo={userInfo}
               onLogout={onLogout}

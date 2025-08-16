@@ -18,10 +18,38 @@ const fruits = [
     status: "Available",
     details: "Organic, Fair Trade",
   },
-  { id: "F002", name: "Apple", country: "Spain", type: "Temperate", status: "Available", details: "Fuji, Premium" },
-  { id: "F003", name: "Orange", country: "Morocco", type: "Citrus", status: "Low Stock", details: "Navel, Sweet" },
-  { id: "F004", name: "Kiwi", country: "New Zealand", type: "Berry", status: "Available", details: "Green, Large" },
-  { id: "F005", name: "Mango", country: "Peru", type: "Tropical", status: "Pending", details: "Kent, Air Freight" },
+  {
+    id: "F002",
+    name: "Apple",
+    country: "Spain",
+    type: "Temperate",
+    status: "Available",
+    details: "Fuji, Premium",
+  },
+  {
+    id: "F003",
+    name: "Orange",
+    country: "Morocco",
+    type: "Citrus",
+    status: "Low Stock",
+    details: "Navel, Sweet",
+  },
+  {
+    id: "F004",
+    name: "Kiwi",
+    country: "New Zealand",
+    type: "Berry",
+    status: "Available",
+    details: "Green, Large",
+  },
+  {
+    id: "F005",
+    name: "Mango",
+    country: "Peru",
+    type: "Tropical",
+    status: "Pending",
+    details: "Kent, Air Freight",
+  },
   {
     id: "F006",
     name: "Pineapple",
@@ -30,7 +58,14 @@ const fruits = [
     status: "Available",
     details: "Extra Sweet",
   },
-  { id: "F007", name: "Grape", country: "Italy", type: "Berry", status: "Available", details: "Red Globe" },
+  {
+    id: "F007",
+    name: "Grape",
+    country: "Italy",
+    type: "Berry",
+    status: "Available",
+    details: "Red Globe",
+  },
   {
     id: "F008",
     name: "Pear",
@@ -39,8 +74,22 @@ const fruits = [
     status: "Available",
     details: "Williams, Fresh",
   },
-  { id: "F009", name: "Lime", country: "Mexico", type: "Citrus", status: "Low Stock", details: "Seedless" },
-  { id: "F010", name: "Papaya", country: "Brazil", type: "Tropical", status: "Available", details: "Formosa" },
+  {
+    id: "F009",
+    name: "Lime",
+    country: "Mexico",
+    type: "Citrus",
+    status: "Low Stock",
+    details: "Seedless",
+  },
+  {
+    id: "F010",
+    name: "Papaya",
+    country: "Brazil",
+    type: "Tropical",
+    status: "Available",
+    details: "Formosa",
+  },
 ];
 
 const columnDefs: ColDef[] = [
@@ -53,7 +102,12 @@ const columnDefs: ColDef[] = [
     field: "status",
     minWidth: 120,
     cellStyle: (params: any) => ({
-      color: params.value === "Available" ? "#7c5fe6" : params.value === "Pending" ? "#ffb300" : "#e57373",
+      color:
+        params.value === "Available"
+          ? "#7c5fe6"
+          : params.value === "Pending"
+            ? "#ffb300"
+            : "#e57373",
       fontWeight: 700,
       fontFamily: "monospace",
       fontSize: 16,
@@ -136,7 +190,8 @@ const FruitBook: React.FC = () => {
                 fontFamily: "monospace",
                 fontSize: 16,
                 color: "#f5f5f5",
-                background: params.node.rowIndex % 2 === 0 ? "#232b3e" : "#262f47",
+                background:
+                  params.node.rowIndex % 2 === 0 ? "#232b3e" : "#262f47",
               };
             }}
             suppressCellFocus={true}
@@ -145,8 +200,11 @@ const FruitBook: React.FC = () => {
       </div>
       {selectedFruit &&
         ReactDOM.createPortal(
-          <FruitEnrichmentPanel fruit={selectedFruit} onClose={() => setSelectedFruit(null)} />,
-          document.body
+          <FruitEnrichmentPanel
+            fruit={selectedFruit}
+            onClose={() => setSelectedFruit(null)}
+          />,
+          document.body,
         )}
     </>
   );

@@ -32,7 +32,10 @@ interface FruitEnrichmentPanelProps {
  * @param fruit The fruit object to display details for.
  * @param onClose Callback to close the panel.
  */
-const FruitEnrichmentPanel: React.FC<FruitEnrichmentPanelProps> = ({ fruit, onClose }) => {
+const FruitEnrichmentPanel: React.FC<FruitEnrichmentPanelProps> = ({
+  fruit,
+  onClose,
+}) => {
   const [panelState, setPanelState] = useState({
     x: 200,
     y: 120,
@@ -76,7 +79,7 @@ const FruitEnrichmentPanel: React.FC<FruitEnrichmentPanelProps> = ({ fruit, onCl
       { property: "Status", value: fruit.status },
       { property: "Details", value: fruit.details },
     ],
-    [fruit]
+    [fruit],
   );
 
   /**

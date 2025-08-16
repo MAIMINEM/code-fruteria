@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const AboutIcon: React.FC<{ size?: number }> = ({ size = 22 }) => (
   <svg width={size} height={size} viewBox="0 0 22 22">

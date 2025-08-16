@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { MockFruitMachine, Fruit } from "../../engine/MockFruitMachine";
 // Add Ant Design imports
-import { Card, Form, Select, InputNumber, Button, Typography, List, message as antdMessage } from "antd";
+import {
+  Card,
+  Form,
+  Select,
+  InputNumber,
+  Button,
+  Typography,
+  List,
+  message as antdMessage,
+} from "antd";
 
 const { Option } = Select;
 const { Title, Text } = Typography;
@@ -62,7 +71,11 @@ export const FruitViewPanel: React.FC = () => {
           onSubmitCapture={(e) => e.preventDefault()}
         >
           <Form.Item label="Fruit">
-            <Select value={selectedFruit} onChange={(value) => setSelectedFruit(value)} style={{ width: 120 }}>
+            <Select
+              value={selectedFruit}
+              onChange={(value) => setSelectedFruit(value)}
+              style={{ width: 120 }}
+            >
               {fruitList.map((fruit) => (
                 <Option key={fruit} value={fruit}>
                   {fruit}
@@ -71,7 +84,12 @@ export const FruitViewPanel: React.FC = () => {
             </Select>
           </Form.Item>
           <Form.Item label="Amount">
-            <InputNumber min={1} value={amount} onChange={(value) => setAmount(Number(value))} style={{ width: 80 }} />
+            <InputNumber
+              min={1}
+              value={amount}
+              onChange={(value) => setAmount(Number(value))}
+              style={{ width: 80 }}
+            />
           </Form.Item>
           <Form.Item>
             <Button type="primary" onClick={handleBuy}>
@@ -90,8 +108,8 @@ export const FruitViewPanel: React.FC = () => {
                 color: message.startsWith("Bought")
                   ? "#52c41a"
                   : message.startsWith("Not enough")
-                  ? "#f5222d"
-                  : undefined,
+                    ? "#f5222d"
+                    : undefined,
               }}
             >
               {message}

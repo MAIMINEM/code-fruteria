@@ -53,7 +53,7 @@ const getGridCellPosition = (
   col: number,
   containerWidth: number,
   containerHeight: number,
-  navBarHeight: number
+  navBarHeight: number,
 ) => {
   const cellWidth = containerWidth / GRID_COLS;
   const cellHeight = containerHeight / GRID_ROWS;
@@ -85,7 +85,9 @@ const getInitialTheme = () => {
   const stored = localStorage.getItem(THEME_KEY);
   if (stored === "dark" || stored === "light") return stored;
   // Ask user if not set
-  const userPref = window.confirm("Use dark theme? Click OK for dark, Cancel for light.");
+  const userPref = window.confirm(
+    "Use dark theme? Click OK for dark, Cancel for light.",
+  );
   const theme = userPref ? "dark" : "light";
   localStorage.setItem(THEME_KEY, theme);
   return theme;
@@ -99,7 +101,9 @@ const App: FC = () => {
   const [dragNavPanelKey, setDragNavPanelKey] = useState<string | null>(null);
   const [navOpen, setNavOpen] = useState<boolean>(false);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-  const [dropCell, setDropCell] = useState<{ row: number; col: number } | null>(null);
+  const [dropCell, setDropCell] = useState<{ row: number; col: number } | null>(
+    null,
+  );
   const [theme, setTheme] = useState<"dark" | "light">(getInitialTheme());
 
   // Drag from nav: set key in dataTransfer
@@ -140,7 +144,13 @@ const App: FC = () => {
     if (dropCell && containerSize.width && containerSize.height) {
       // Subtract nav bar height from available height for grid
       const availableHeight = containerSize.height - NAV_BAR_HEIGHT;
-      const pos = getGridCellPosition(dropCell.row, dropCell.col, containerSize.width, availableHeight, NAV_BAR_HEIGHT);
+      const pos = getGridCellPosition(
+        dropCell.row,
+        dropCell.col,
+        containerSize.width,
+        availableHeight,
+        NAV_BAR_HEIGHT,
+      );
       // Clamp width/height to not exceed window
       width = Math.min(pos.width, containerSize.width);
       height = Math.min(pos.height, availableHeight);
@@ -181,7 +191,9 @@ const App: FC = () => {
    * Moves a panel by delta x and y.
    */
   const handlePanelMove = (id: string, dx: number, dy: number) => {
-    setOpenPanels((panels) => panels.map((p) => (p.id === id ? { ...p, x: p.x + dx, y: p.y + dy } : p)));
+    setOpenPanels((panels) =>
+      panels.map((p) => (p.id === id ? { ...p, x: p.x + dx, y: p.y + dy } : p)),
+    );
   };
 
   /**
@@ -190,8 +202,14 @@ const App: FC = () => {
   const handlePanelResize = (id: string, dw: number, dh: number) => {
     setOpenPanels((panels) =>
       panels.map((p) =>
-        p.id === id ? { ...p, width: Math.max(200, p.width + dw), height: Math.max(100, p.height + dh) } : p
-      )
+        p.id === id
+          ? {
+              ...p,
+              width: Math.max(200, p.width + dw),
+              height: Math.max(100, p.height + dh),
+            }
+          : p,
+      ),
     );
   };
 
@@ -208,12 +226,16 @@ const App: FC = () => {
     };
 
     const activityEvents = ["mousemove", "keydown", "mousedown", "touchstart"];
-    activityEvents.forEach((event) => window.addEventListener(event, resetTimer));
+    activityEvents.forEach((event) =>
+      window.addEventListener(event, resetTimer),
+    );
     resetTimer();
 
     return () => {
       if (timer) clearTimeout(timer);
-      activityEvents.forEach((event) => window.removeEventListener(event, resetTimer));
+      activityEvents.forEach((event) =>
+        window.removeEventListener(event, resetTimer),
+      );
     };
   }, []);
 
@@ -235,7 +257,10 @@ const App: FC = () => {
   };
 
   return (
-    <div className={`app-root theme-${theme}`} style={{ display: "flex", height: "100vh" }}>
+    <div
+      className={`app-root theme-${theme}`}
+      style={{ display: "flex", height: "100vh" }}
+    >
       {/* Navigation Bar */}
       {navOpen && (
         <nav
@@ -269,7 +294,8 @@ const App: FC = () => {
                   marginBottom: 16,
                   cursor: "grab",
                   fontWeight: "normal",
-                  background: dragNavPanelKey === panel.key ? "#353b4a" : undefined,
+                  background:
+                    dragNavPanelKey === panel.key ? "#353b4a" : undefined,
                   padding: 8,
                   borderRadius: 10,
                   display: "flex",
@@ -378,8 +404,24 @@ const App: FC = () => {
                 {navOpen ? (
                   // X icon
                   <svg width="28" height="28" viewBox="0 0 28 28">
-                    <line x1="7" y1="7" x2="21" y2="21" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" />
-                    <line x1="21" y1="7" x2="7" y2="21" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" />
+                    <line
+                      x1="7"
+                      y1="7"
+                      x2="21"
+                      y2="21"
+                      stroke="#fff"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
+                    <line
+                      x1="21"
+                      y1="7"
+                      x2="7"
+                      y2="21"
+                      stroke="#fff"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
                   </svg>
                 ) : (
                   // Hamburger icon
@@ -421,7 +463,9 @@ const App: FC = () => {
             </div>
           </div>
           {openPanels.length === 0 ? (
-            <div style={{ color: "#888", textAlign: "center", marginTop: "2rem" }}>
+            <div
+              style={{ color: "#888", textAlign: "center", marginTop: "2rem" }}
+            >
               No panels open.
               <br />
               Drag one from the navigation bar.
@@ -485,6 +529,6 @@ if (container) {
   root.render(
     <StrictMode>
       <Root />
-    </StrictMode>
+    </StrictMode>,
   );
 }
