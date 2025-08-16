@@ -9,6 +9,7 @@ import { MainWorkspace } from "./components/MainWorkspace";
 import LoginComponent from "./components/LoginComponent";
 import UserProfile from "./components/UserProfile";
 import { panelList } from "./panelList";
+import "@ant-design/v5-patch-for-react-19";
 
 /**
  * Represents an open panel's state and position.
@@ -478,6 +479,7 @@ const origLoginComponent = LoginComponent;
 };
 
 const container = document.getElementById("root");
+
 if (container) {
   const root = createRoot(container);
   root.render(

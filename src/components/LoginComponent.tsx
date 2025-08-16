@@ -36,8 +36,8 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLoginSuccess }) => {
           boxShadow: "0 2px 16px #0003",
           background: "#232b3e",
           border: "1px solid #3e4a6b",
+          borderRadius: 14,
         }}
-        bodyStyle={{ padding: 32 }}
       >
         <Typography.Title
           level={2}
