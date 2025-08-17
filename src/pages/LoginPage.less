@@ -1,0 +1,65 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-color);
+}
+
+.theme-toggle-button {
+  position: absolute;
+  top: 24px;
+  right: 32px;
+  z-index: 10;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  background: var(--primary-color);
+  color: var(--text-color);
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px var(--shadow-color, #0002);
+  transition: background 0.2s;
+}
+
+.login-card {
+  min-width: 340px;
+  box-shadow: 0 2px 16px #0003;
+  background: var(--background-color);
+  border: 1px solid var(--secondary-color);
+  border-radius: 14px;
+}
+
+.typography {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--text-color);
+  font-family: monospace;
+  font-size: xx-large;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-shadow: 0 1px 2px var(--border-color);
+}
+
+.login-label {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+// For Ant Design Password input (input[type='password'])
+.login-input[type="password"]::placeholder {
+  opacity: 1;
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
+
+.login-button {
+  font-weight: 600;
+  letter-spacing: 1;
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  border: none;
+  color: var(--text-color);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}

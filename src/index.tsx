@@ -1,15 +1,11 @@
 import "antd/dist/reset.css";
-import React, { useState, DragEvent, FC, StrictMode, useEffect } from "react";
+import "../styles/theme.less";
+import React, { useState, StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import LoginPage from "./pages/LoginPage";
 import App from "./app";
 import "@ant-design/v5-patch-for-react-19";
-
-/**
- * Checks if the user is logged in.
- * @returns {boolean}
- */
-const isLoggedIn = () => localStorage.getItem("isLoggedIn") === "true";
+import { isLoggedIn } from "./utils/utils";
 
 /**
  * Root component that handles login state.
@@ -30,6 +26,17 @@ const Root: React.FC = () => {
   return <App />;
 };
 
+const container = document.getElementById("root");
+
+if (container) {
+  const root = createRoot(container);
+  root.render(
+    <StrictMode>
+      <Root />
+    </StrictMode>
+  );
+}
+
 // Patch LoginComponent to set login flag and dispatch event
 // (You can move this logic inside LoginComponent if you prefer)
 const origLoginComponent = LoginPage;
@@ -44,14 +51,3 @@ const origLoginComponent = LoginPage;
     },
   });
 };
-
-const container = document.getElementById("root");
-
-if (container) {
-  const root = createRoot(container);
-  root.render(
-    <StrictMode>
-      <Root />
-    </StrictMode>
-  );
-}

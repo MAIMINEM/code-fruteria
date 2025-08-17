@@ -1,4 +1,11 @@
 import { GRID_COLS, GRID_ROWS, THEME_KEY } from "../constants/constants";
+
+/**
+ * Checks if the user is logged in.
+ * @returns {boolean}
+ */
+const isLoggedIn = () => localStorage.getItem("isLoggedIn") === "true";
+
 /**
  * Calculates the position and size of a grid cell.
  * @param row Row index
@@ -42,12 +49,16 @@ const getDefaultPanelPosition = (count: number) => ({
  */
 const getInitialTheme = () => {
   const stored = localStorage.getItem(THEME_KEY);
+
+  console.log("Stored theme:", stored);
   if (stored === "dark" || stored === "light") return stored;
   // Ask user if not set
   const userPref = window.confirm("Use dark theme? Click OK for dark, Cancel for light.");
   const theme = userPref ? "dark" : "light";
   localStorage.setItem(THEME_KEY, theme);
+
+  console.log("Set theme:", theme);
   return theme;
 };
 
-export { getGridCellPosition, getDefaultPanelPosition, getInitialTheme };
+export { isLoggedIn, getGridCellPosition, getDefaultPanelPosition, getInitialTheme };

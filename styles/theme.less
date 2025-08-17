@@ -1,31 +1,30 @@
 // Theme Variables
 
 // Light Theme Variables
-@light-primary-color: #4CAF50;
-@light-secondary-color: #FFC107;
-@light-background-color: #F5F5F5;
+@light-primary-color: #0fe916;
+@light-secondary-color: #efb609;
+@light-background-color: #f5f5f5;
 @light-text-color: #333;
-@light-border-radius: 4px;
 
 // Dark Theme Variables
-@dark-primary-color: #81C784;
-@dark-secondary-color: #FFD54F;
+@dark-primary-color: #045608;
+@dark-secondary-color: #634e06;
 @dark-background-color: #222;
-@dark-text-color: #F5F5F5;
-@dark-border-radius: 4px;
+@dark-text-color: #f5f5f5;
 
 // Default (for backward compatibility)
 @primary-color: @light-primary-color;
 @secondary-color: @light-secondary-color;
 @background-color: @light-background-color;
 @text-color: @light-text-color;
-@border-radius: @light-border-radius;
+
+@border-radius: 4px;
 
 // Global Styles
 body {
   background: @background-color;
   color: @text-color;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -36,7 +35,7 @@ body {
   --secondary-color: @light-secondary-color;
   --background-color: @light-background-color;
   --text-color: @light-text-color;
-  --border-radius: @light-border-radius;
+  --border-radius: @border-radius;
 
   background: var(--background-color);
   color: var(--text-color);
@@ -48,7 +47,8 @@ body {
   --secondary-color: @dark-secondary-color;
   --background-color: @dark-background-color;
   --text-color: @dark-text-color;
-  --border-radius: @dark-border-radius;
+
+  --border-radius: @border-radius;
 
   background: var(--background-color);
   color: var(--text-color);
@@ -64,14 +64,14 @@ a {
 
 .button {
   background: var(--primary-color, @primary-color);
-  color: #fff;
+  color: var(--text-color);
   border: none;
   border-radius: var(--border-radius, @border-radius);
   padding: 10px 20px;
   cursor: pointer;
   transition: background 0.2s;
   &:hover {
-    background: darken(var(--primary-color, @primary-color), 10%);
+    background: darken(@primary-color, 10%);
   }
 }
 

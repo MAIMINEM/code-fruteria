@@ -1,12 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Button, Typography, Alert, Card } from "antd";
+import "./LoginPage.less";
 
 type LoginComponentProps = {
   onLoginSuccess?: () => void;
 };
 
 const LoginPage: React.FC<LoginComponentProps> = ({ onLoginSuccess }) => {
+  const [theme, setTheme] = useState("light");
   const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.body.classList.remove("theme-light", "theme-dark");
+    document.body.classList.add(`theme-${theme}`);
+  }, [theme]);
+
+  const handleThemeChange = () => {
+    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+    localStorage.setItem("theme", theme);
+
+    console.log(`Theme changed to ${theme}`);
+  };
 
   const onFinish = (values: any) => {
     const { username, password } = values;
@@ -20,68 +41,26 @@ const LoginPage: React.FC<LoginComponentProps> = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div
-      id="login-component"
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "#232b3e",
-      }}
-    >
-      <Card
-        style={{
-          minWidth: 340,
-          boxShadow: "0 2px 16px #0003",
-          background: "#232b3e",
-          border: "1px solid #3e4a6b",
-          borderRadius: 14,
-        }}
-      >
-        <Typography.Title
-          level={2}
-          style={{
-            textAlign: "center",
-            marginBottom: 24,
-            color: "#fff",
-            fontFamily: "monospace",
-            fontWeight: 700,
-            letterSpacing: 2,
-            textShadow: "0 1px 2px #0006",
-          }}
-        >
-          Login
-        </Typography.Title>
+    <div id="login-component" className="login-page">
+      <button onClick={handleThemeChange} className="theme-toggle-button">
+        Toggle Theme
+      </button>
+      <Card className="login-card">
+        <label className="typography">Login</label>
         <Form layout="vertical" onFinish={onFinish} autoComplete="off">
           <Form.Item
-            label={<span style={{ color: "#e0e0e0", fontWeight: 500 }}>Username</span>}
+            label={<span className="login-label">Username</span>}
             name="username"
             rules={[{ required: true, message: "Please input your username!" }]}
           >
-            <Input
-              autoFocus
-              style={{
-                background: "#232b3e",
-                color: "#fff",
-                border: "1px solid #3e4a6b",
-              }}
-              placeholder="Enter your username"
-            />
+            <Input autoFocus className="login-input" placeholder="Enter your username" />
           </Form.Item>
           <Form.Item
-            label={<span style={{ color: "#e0e0e0", fontWeight: 500 }}>Password</span>}
+            label={<span className="login">Password</span>}
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <Input.Password
-              style={{
-                background: "#232b3e",
-                color: "#fff",
-                border: "1px solid #3e4a6b",
-              }}
-              placeholder="Enter your password"
-            />
+            <Input.Password className="login-input" placeholder="Enter your password" />
           </Form.Item>
           {errorMsg && (
             <Form.Item>
@@ -89,19 +68,7 @@ const LoginPage: React.FC<LoginComponentProps> = ({ onLoginSuccess }) => {
             </Form.Item>
           )}
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              block
-              style={{
-                fontWeight: 600,
-                letterSpacing: 1,
-                background: "linear-gradient(90deg, #2b3556 0%, #3e4a6b 100%)",
-                border: "none",
-                color: "#fff",
-                boxShadow: "0 2px 8px #0002",
-              }}
-            >
+            <Button type="primary" htmlType="submit" block className="login-button">
               Login
             </Button>
           </Form.Item>
