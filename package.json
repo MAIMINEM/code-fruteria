@@ -17,7 +17,8 @@
     "ag-grid-react": "^34.1.1",
     "antd": "^5.27.0",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-rnd": "^10.5.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.7.0",

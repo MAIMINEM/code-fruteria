@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React from "react";
+import { Rnd } from "react-rnd";
 
 type Props = {
   id: string;
@@ -29,135 +30,89 @@ const ResizableDraggablePanel: React.FC<Props> = ({
   onMove,
   onResize,
 }) => {
-  const dragStart = useRef<{ x: number; y: number } | null>(null);
-  const resizeStart = useRef<{
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-  } | null>(null);
-
-  // Drag logic
-  const handleMouseDown = (e: React.MouseEvent) => {
-    dragStart.current = { x: e.clientX, y: e.clientY };
-    window.dispatchEvent(new Event("panel-drag-start")); // Show grid overlay
-    const handleMouseMove = (moveEvent: MouseEvent) => {
-      if (dragStart.current) {
-        const dx = moveEvent.clientX - dragStart.current.x;
-        const dy = moveEvent.clientY - dragStart.current.y;
-        onMove(dx, dy);
-        dragStart.current = { x: moveEvent.clientX, y: moveEvent.clientY };
-      }
-    };
-    const handleMouseUp = () => {
-      dragStart.current = null;
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-      window.dispatchEvent(new Event("panel-drag-end")); // Hide grid overlay
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-  };
-
-  // Resize logic
-  const handleResizeMouseDown = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    resizeStart.current = { x: e.clientX, y: e.clientY, width, height };
-    const handleMouseMove = (moveEvent: MouseEvent) => {
-      if (resizeStart.current) {
-        const dw = moveEvent.clientX - resizeStart.current.x;
-        const dh = moveEvent.clientY - resizeStart.current.y;
-        onResize(dw, dh);
-      }
-    };
-    const handleMouseUp = () => {
-      resizeStart.current = null;
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-  };
-
   return (
-    <div
-      style={{
-        position: "absolute",
-        left: x,
-        top: y,
-        width,
-        height,
-        minWidth,
-        minHeight,
-        background: "#232b3e",
-        borderRadius: 8,
-        boxShadow: "0 2px 8px #0006",
-        overflow: "hidden",
-        zIndex: 1000,
-        display: "flex",
-        flexDirection: "column",
-        border: "1px solid #3e4a6b",
+    <Rnd
+      default={{ x, y, width, height }}
+      position={{ x, y }}
+      size={{ width, height }}
+      minWidth={minWidth || 150}
+      minHeight={minHeight || 100}
+      bounds="window"
+      onDragStop={(_e, d) => {
+        onMove(d.x - x, d.y - y);
+        window.dispatchEvent(new Event("panel-drag-end"));
+      }}
+      onDragStart={() => {
+        window.dispatchEvent(new Event("panel-drag-start"));
+      }}
+      onResizeStop={(_e, _dir, ref, _delta, position) => {
+        const newWidth = parseInt(ref.style.width, 10);
+        const newHeight = parseInt(ref.style.height, 10);
+        onResize(newWidth - width, newHeight - height);
+        if (position) {
+          onMove(position.x - x, position.y - y);
+        }
+      }}
+      style={{ zIndex: 1000 }}
+      dragHandleClassName="panel-drag-handle"
+      enableResizing={{
+        bottomRight: true,
+        right: true,
+        bottom: true,
       }}
     >
       <div
         style={{
-          cursor: "move",
-          background: "#2b3556",
-          color: "#fff",
-          padding: "8px 16px",
-          fontWeight: 700,
-          fontFamily: "monospace",
-          fontSize: 16,
+          width: "100%",
+          height: "100%",
+          background: "#232b3e",
+          borderRadius: 8,
+          boxShadow: "0 2px 8px #0006",
+          overflow: "hidden",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          userSelect: "none",
+          flexDirection: "column",
+          border: "1px solid #3e4a6b",
         }}
-        onMouseDown={handleMouseDown}
       >
-        <span>{title}</span>
-        <button
-          onClick={onClose}
+        <div
+          className="panel-drag-handle"
           style={{
-            background: "transparent",
-            border: "none",
+            cursor: "move",
+            background: "#2b3556",
             color: "#fff",
-            fontSize: 18,
-            cursor: "pointer",
-            marginLeft: 8,
+            padding: "8px 16px",
+            fontWeight: 700,
+            fontFamily: "monospace",
+            fontSize: 16,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            userSelect: "none",
           }}
-          aria-label="Close"
         >
-          ×
-        </button>
+          <span>{title}</span>
+          <button
+            onClick={onClose}
+            style={{
+              background: "transparent",
+              border: "none",
+              color: "#fff",
+              fontSize: 18,
+              cursor: "pointer",
+              marginLeft: 8,
+            }}
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+        <div style={{ flex: 1, overflow: "auto", background: "#232b3e" }}>{content}</div>
+        {/* Resize handle is built-in with react-rnd */}
       </div>
-      <div style={{ flex: 1, overflow: "auto", background: "#232b3e" }}>
-        {content}
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          right: 0,
-          bottom: 0,
-          width: 18,
-          height: 18,
-          cursor: "nwse-resize",
-          background: "transparent",
-          zIndex: 10,
-        }}
-        onMouseDown={handleResizeMouseDown}
-      >
-        <svg width="18" height="18">
-          <polyline
-            points="3,15 15,15 15,3"
-            fill="none"
-            stroke="#7c5fe6"
-            strokeWidth="2"
-          />
-        </svg>
-      </div>
-    </div>
+    </Rnd>
   );
 };
+
+// (Old code removed, see above for new Rnd-based implementation)
 
 export default ResizableDraggablePanel;
