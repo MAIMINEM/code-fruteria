@@ -1,16 +1,7 @@
 import React, { useState } from "react";
 import { MockFruitMachine, Fruit } from "../../engine/MockFruitMachine";
-// Add Ant Design imports
-import {
-  Card,
-  Form,
-  Select,
-  InputNumber,
-  Button,
-  Typography,
-  List,
-  message as antdMessage,
-} from "antd";
+import { Card, Form, Select, InputNumber, Button, Typography, List, message as antdMessage } from "antd";
+import "./FruitViewPanel.less";
 
 const { Option } = Select;
 const { Title, Text } = Typography;
@@ -25,57 +16,36 @@ export const FruitViewPanel: React.FC = () => {
   const [message, setMessage] = useState("");
 
   const handleBuy = () => {
-    if (machine.buy(selectedFruit, amount)) {
-      setMessage(`Bought ${amount} ${selectedFruit}(s).`);
-      antdMessage.success(`Bought ${amount} ${selectedFruit}(s).`);
-    } else {
-      setMessage(`Not enough ${selectedFruit}s in inventory.`);
-      antdMessage.error(`Not enough ${selectedFruit}s in inventory.`);
-    }
+    machine.buy(selectedFruit, amount);
+    setMessage(`Bought ${amount} ${selectedFruit}(s).`);
+    antdMessage.success(`Bought ${amount} ${selectedFruit}(s).`);
+
     setInventory(machine.getInventory());
   };
 
   const handleSell = () => {
-    machine.sell(selectedFruit, amount);
-    setMessage(`Sold ${amount} ${selectedFruit}(s).`);
-    antdMessage.info(`Sold ${amount} ${selectedFruit}(s).`);
+    if (inventory[selectedFruit] < amount) {
+      setMessage(`Not enough ${selectedFruit}s in inventory.`);
+
+      return;
+    } else {
+      machine.sell(selectedFruit, amount);
+      setMessage(`Sold ${amount} ${selectedFruit}(s).`);
+      antdMessage.info(`Sold ${amount} ${selectedFruit}(s).`);
+    }
+
     setInventory(machine.getInventory());
   };
 
   return (
-    <div
-      className="panels"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "flex-start",
-        minHeight: "100%",
-        padding: "32px 0",
-      }}
-    >
-      <Card
-        style={{
-          borderRadius: 12,
-          boxShadow: "0 2px 12px #0004",
-          minWidth: 350,
-          maxWidth: 400,
-          padding: 32,
-        }}
-      >
-        <Title level={3} style={{ marginTop: 0, marginBottom: 24 }}>
+    <div className="fruit-view-panel">
+      <Card className="fruit-view-card">
+        <Title level={3} className="fruit-view-title">
           Fruit View
         </Title>
-        <Form
-          layout="inline"
-          style={{ marginBottom: 16, flexWrap: "wrap", gap: 12 }}
-          onSubmitCapture={(e) => e.preventDefault()}
-        >
+        <Form layout="inline" className="fruit-view-form" onSubmitCapture={(e) => e.preventDefault()}>
           <Form.Item label="Fruit">
-            <Select
-              value={selectedFruit}
-              onChange={(value) => setSelectedFruit(value)}
-              style={{ width: 120 }}
-            >
+            <Select value={selectedFruit} onChange={(value) => setSelectedFruit(value)} style={{ width: 120 }}>
               {fruitList.map((fruit) => (
                 <Option key={fruit} value={fruit}>
                   {fruit}
@@ -84,13 +54,7 @@ export const FruitViewPanel: React.FC = () => {
             </Select>
           </Form.Item>
           <Form.Item label="Amount">
-            <InputNumber
-              min={1}
-              value={amount}
-              onChange={(value) => setAmount(Number(value))}
-              style={{ width: 80 }}
-            
-            />
+            <InputNumber min={1} value={amount} onChange={(value) => setAmount(Number(value))} style={{ width: 80 }} />
           </Form.Item>
           <Form.Item>
             <Button type="primary" onClick={handleBuy}>
@@ -101,7 +65,7 @@ export const FruitViewPanel: React.FC = () => {
             </Button>
           </Form.Item>
         </Form>
-        <div style={{ minHeight: 24, marginBottom: 16 }}>
+        <div className="fruit-view-message">
           {message && (
             <Text
               strong
@@ -109,25 +73,25 @@ export const FruitViewPanel: React.FC = () => {
                 color: message.startsWith("Bought")
                   ? "#52c41a"
                   : message.startsWith("Not enough")
-                    ? "#f5222d"
-                    : undefined,
+                  ? "#f5222d"
+                  : undefined,
               }}
             >
               {message}
             </Text>
           )}
         </div>
-        <Title level={4} style={{ marginBottom: 8 }}>
+        <Title level={4} className="fruit-view-inventory-title">
           Inventory
         </Title>
         <List
           size="small"
           dataSource={fruitList}
           renderItem={(fruit) => (
-            <List.Item style={{ padding: "4px 0" }}>
-              <Text style={{ color: "#bfcfff", fontSize: 16 }}>
+            <List.Item className="fruit-view-list-item">
+              <Text className="fruit-view-fruit">
                 {fruit}:{" "}
-                <Text strong style={{ color: "#222" }}>
+                <Text strong className="fruit-view-fruit-amount">
                   {inventory[fruit]}
                 </Text>
               </Text>

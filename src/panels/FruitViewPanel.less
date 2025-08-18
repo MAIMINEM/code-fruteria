@@ -1,0 +1,110 @@
+// FruitViewPanel styles
+
+.fruit-view-panel {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100%;
+  padding: 40px 0 32px 0;
+  background: linear-gradient(135deg, var(--background-color) 60%, var(--card-background) 100%);
+  color: var(--text-color);
+  transition: background 0.3s;
+}
+
+.label {
+  color: var(--text-color);
+}
+
+.fruit-view-card {
+  border-radius: 18px;
+  box-shadow: 0 6px 32px 0 rgba(30,40,90,0.18), 0 1.5px 6px 0 rgba(30,40,90,0.10);
+  min-width: 340px;
+  max-width: 420px;
+  padding: 36px 32px 28px 32px;
+  background: var(--card-background, #fff);
+  color: var(--text-color);
+  border: 1.5px solid rgba(80,120,200,0.08);
+  transition: box-shadow 0.2s, border 0.2s;
+}
+.fruit-view-card:hover {
+  box-shadow: 0 10px 40px 0 rgba(30,40,90,0.22), 0 2px 8px 0 rgba(30,40,90,0.13);
+  border: 1.5px solid rgba(80,120,200,0.16);
+}
+
+.fruit-view-title {
+  margin-top: 0;
+  margin-bottom: 28px;
+  color: var(--title-color, #222);
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(30,40,90,0.08);
+}
+
+.fruit-view-form {
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+.fruit-view-message {
+  min-height: 28px;
+  margin-bottom: 18px;
+  text-align: center;
+  font-size: 15px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.fruit-view-inventory-title {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.fruit-view-list-item {
+  padding: 6px 0;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.fruit-view-list-item:hover {
+  background: rgba(80,120,200,0.07);
+}
+
+.fruit-view-fruit {
+  color: var(--fruit-label-color, #3e4a6b);
+  font-size: 16px;
+  font-family: 'Fira Mono', 'Consolas', monospace;
+}
+
+.fruit-view-fruit-amount {
+  color: var(--fruit-amount-color, #222);
+  font-weight: bold;
+  font-size: 16px;
+  padding-left: 2px;
+}
+
+// Light theme
+
+.theme-light .fruit-view-panel {
+  --background-color: #f5f8ff;
+  --text-color: #222;
+  --card-background: #fff;
+  --title-color: #222;
+  --fruit-label-color: #3e4a6b;
+  --fruit-amount-color: #222;
+}
+
+// Dark theme
+
+.theme-dark .fruit-view-panel {
+  --background-color: #1a2136;
+  --text-color: #e0e0e0;
+  --card-background: #232b3e;
+  --title-color: #fff;
+  --fruit-label-color: #bfcfff;
+  --fruit-amount-color: #fff;
+}

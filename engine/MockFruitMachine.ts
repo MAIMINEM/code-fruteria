@@ -1,4 +1,4 @@
-export type Fruit = 'apple' | 'banana' | 'orange';
+export type Fruit = "apple" | "banana" | "orange";
 
 export interface FruitInventory {
   [fruit: string]: number;
@@ -15,15 +15,11 @@ export class MockFruitMachine {
     return { ...this.inventory };
   }
 
-  buy(fruit: Fruit, amount: number): boolean {
-    if (this.inventory[fruit] >= amount) {
-      this.inventory[fruit] -= amount;
-      return true;
-    }
-    return false;
+  buy(fruit: Fruit, amount: number) {
+    this.inventory[fruit] += amount;
   }
 
   sell(fruit: Fruit, amount: number): void {
-    this.inventory[fruit] += amount;
+    this.inventory[fruit] -= amount;
   }
 }
