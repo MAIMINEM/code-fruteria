@@ -33,7 +33,6 @@ const HomePage: FC = () => {
   const [navIsOpen, setNavIsOpen] = useState(true);
   const [authToken, setAuthToken] = useState(() => localStorage.getItem("authToken"));
 
-  const theme = useThemeStore((s) => s.theme);
   const navigate = useNavigate();
 
   // Memoized handlers for panel actions
