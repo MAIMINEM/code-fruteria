@@ -5,11 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useThemeStore } from "../store/themeStore";
 import ThemeToggleButton from "../components/ThemeToggleButton";
 import "./LoginPage.less";
-
-interface AuthFormValues {
-  username: string;
-  password: string;
-}
+import { AuthFormValues, UserRegister, UserLogin } from "../Network/Auth";
 
 const LoginPage: React.FC = React.memo(() => {
   const theme = useThemeStore((s) => s.theme);
@@ -27,14 +23,15 @@ const LoginPage: React.FC = React.memo(() => {
   const handleRegister = useCallback(async () => {
     setErrorMsg(null);
     setSuccessMsg(null);
-    setLoading(true);
     try {
       const values = await form.validateFields();
-      await APIClient.post("/register", values);
-      setSuccessMsg("Registration successful. You can now log in.");
-    } catch (err: any) {
-      if (err?.errorFields) return; // Validation error
-      setErrorMsg(err?.response?.data?.message || "Registration failed");
+      setLoading(true);
+      const result = await UserRegister(values);
+      if (result.success) {
+        setSuccessMsg("Registration successful. You can now log in.");
+      } else {
+        setErrorMsg(result.message);
+      }
     } finally {
       setLoading(false);
     }
@@ -46,22 +43,15 @@ const LoginPage: React.FC = React.memo(() => {
       setErrorMsg(null);
       setSuccessMsg(null);
       setLoading(true);
-      try {
-        const res = await APIClient.post("/login", values);
-        const { token } = res.data;
-        if (token) {
-          localStorage.setItem("authToken", token);
-          navigate("/app");
-        } else {
-          setErrorMsg("Login failed: No token returned");
-        }
-      } catch (err: any) {
-        setErrorMsg(err?.response?.data?.message || "Login failed");
-      } finally {
-        setLoading(false);
+      const result = await UserLogin(values);
+      if (result.success) {
+        navigate("/app");
+      } else {
+        setErrorMsg(result.message);
       }
+      setLoading(false);
     },
-    [navigate]
+    [form]
   );
 
   return (
