@@ -1,6 +1,6 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-import App from "../app";
+import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import NotFound from "../pages/NotFound";
 
@@ -12,7 +12,7 @@ const AppRoutes = createBrowserRouter([
   },
   {
     path: "/app",
-    element: <App />,
+    element: <HomePage />,
     errorElement: <NotFound />,
   },
 ]);

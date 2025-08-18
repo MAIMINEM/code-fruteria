@@ -1,14 +1,15 @@
-import React, { useState, DragEvent, FC, useEffect } from "react";
-import ResizableDraggablePanel from "./components/ResizableDraggablePanel";
-import TermsIcon from "./assets/Icons/TermsIcon";
-import AboutIcon from "./assets/Icons/AboutIcon";
-import FruitViewIcon from "./assets/Icons/FruitViewIcon";
-import { MainWorkspace } from "./components/MainWorkspace";
-import UserProfile from "./components/UserProfile";
-import { panelList } from "./panelList";
-import { getInitialTheme, getGridCellPosition } from "./utils/utils";
-import { NAV_BAR_HEIGHT, INACTIVITY_LIMIT, THEME_KEY, GRID_COLS, GRID_ROWS } from "./constants/constants";
-import { isLoggedIn } from "./utils/utils";
+import React, { useState, FC, useEffect } from "react";
+import ResizableDraggablePanel from "../components/ResizableDraggablePanel";
+import TermsIcon from "../assets/Icons/TermsIcon";
+import AboutIcon from "../assets/Icons/AboutIcon";
+import FruitViewIcon from "../assets/Icons/FruitViewIcon";
+import { MainWorkspace } from "../components/MainWorkspace";
+import UserProfile from "../components/UserProfile";
+import { panelList } from "../panelList";
+import { getInitialTheme, getGridCellPosition } from "../utils/utils";
+import { useDragAndDrop } from "./useDragAndDrop";
+import { NAV_BAR_HEIGHT, INACTIVITY_LIMIT, THEME_KEY, GRID_COLS, GRID_ROWS } from "../constants/constants";
+import { isLoggedIn } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
 
 /**
@@ -28,82 +29,33 @@ type OpenPanel = {
 /**
  * Main application component.
  */
-const App: FC = () => {
+const HomePage: FC = () => {
   const [loggedIn, setLoggedIn] = useState(isLoggedIn());
   const [openPanels, setOpenPanels] = useState<OpenPanel[]>([]);
-  const [dragNavPanelKey, setDragNavPanelKey] = useState<string | null>(null);
   const [navOpen, setNavOpen] = useState<boolean>(false);
-  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
-  const [dropCell, setDropCell] = useState<{ row: number; col: number } | null>(null);
+
+  // Use extracted drag-and-drop hook
+  const {
+    onNavDragStart,
+    handleGridDropInfo,
+    onMainDrop,
+    onMainDragOver,
+    dragNavPanelKey,
+    setDragNavPanelKey,
+    dropCell,
+    containerSize,
+    setDropCell,
+    setContainerSize,
+  } = useDragAndDrop({
+    panelList,
+    openPanels,
+    setOpenPanels,
+    NAV_BAR_HEIGHT,
+    getGridCellPosition,
+  });
   const [theme, setTheme] = useState<"dark" | "light">(getInitialTheme());
 
-  // Drag from nav: set key in dataTransfer
-  /**
-   * Handles drag start from the navigation bar.
-   * @param key Panel key
-   */
-  const onNavDragStart = (key: string) => (e: DragEvent<HTMLLIElement>) => {
-    setDragNavPanelKey(key);
-    e.dataTransfer.setData("panelKey", key);
-  };
-
-  /**
-   * Called by MainWorkspace to update container size and drop cell.
-   */
-  const handleGridDropInfo = (info: {
-    cell: { row: number; col: number } | null;
-    size: { width: number; height: number };
-  }) => {
-    setDropCell(info.cell);
-    setContainerSize(info.size);
-  };
-
-  /**
-   * Handles drop event on the main workspace to open a new panel.
-   */
-  const onMainDrop = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const key = e.dataTransfer.getData("panelKey");
-    if (!key) return;
-    const panelDef = panelList.find((p) => p.key === key);
-    if (!panelDef) return;
-    const id = `${key}-${Date.now()}`;
-    let x = 60,
-      y = NAV_BAR_HEIGHT + 10,
-      width = 700,
-      height = 420;
-    if (dropCell && containerSize.width && containerSize.height) {
-      // Subtract nav bar height from available height for grid
-      const availableHeight = containerSize.height - NAV_BAR_HEIGHT;
-      const pos = getGridCellPosition(dropCell.row, dropCell.col, containerSize.width, availableHeight, NAV_BAR_HEIGHT);
-      // Clamp width/height to not exceed window
-      width = Math.min(pos.width, containerSize.width);
-      height = Math.min(pos.height, availableHeight);
-      x = pos.x;
-      y = pos.y;
-    }
-    setOpenPanels([
-      ...openPanels,
-      {
-        id,
-        key: panelDef.key,
-        title: panelDef.title,
-        content: panelDef.content,
-        x,
-        y,
-        width,
-        height,
-      },
-    ]);
-    setDragNavPanelKey(null);
-  };
-
-  /**
-   * Handles drag over event on the main workspace.
-   */
-  const onMainDragOver = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
+  // ...drag and drop logic is now handled by useDragAndDrop
 
   /**
    * Closes a panel by id.
@@ -395,4 +347,4 @@ const App: FC = () => {
   );
 };
 
-export default App;
+export default HomePage;
