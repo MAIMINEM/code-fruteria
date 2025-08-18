@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { THEME_KEY } from "../constants/constants";
 
 export type ThemeType = "light" | "dark";
 
@@ -23,7 +24,7 @@ export const useThemeStore = create<ThemeState>((set) => {
     setTheme: (theme) => {
       document.body.classList.remove("theme-light", "theme-dark");
       document.body.classList.add(`theme-${theme}`);
-      localStorage.setItem("theme", theme);
+      localStorage.setItem(THEME_KEY, theme);
       set({ theme });
     },
 
@@ -32,7 +33,7 @@ export const useThemeStore = create<ThemeState>((set) => {
         const next = state.theme === "dark" ? "light" : "dark";
         document.body.classList.remove("theme-light", "theme-dark");
         document.body.classList.add(`theme-${next}`);
-        localStorage.setItem("theme", next);
+        localStorage.setItem(THEME_KEY, next);
         return { theme: next };
       }),
   };

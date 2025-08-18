@@ -226,14 +226,7 @@ const HomePage: FC = () => {
             <div style={{ flex: 1 }} />
             {/* UserProfile on the right */}
             <div style={{ marginRight: 32 }}>
-              <UserProfile
-                // onLogout={() => {
-                //   localStorage.removeItem("authToken");
-
-                //   navigate("/login"); // Redirect to login page after logout
-                // }}
-                theme={theme}
-              />
+              <UserProfile />
             </div>
           </div>
 

@@ -1,67 +1,10 @@
 import UserPopover from "./UserPopover";
 import React, { useState } from "react";
-import { Button, Typography, Switch } from "antd";
-// Use canonical AntD import for Typography.Text
-// const { Text } = Typography;
-import { CheckOutlined, CloseOutlined, UserOutlined } from "@ant-design/icons";
-
-// Styles
-const popoverContainerStyle: React.CSSProperties = {
-  minWidth: 280,
-  padding: 28,
-  background: "#232634",
-  borderRadius: 14,
-  boxShadow: "0 4px 32px rgba(0,0,0,0.45)",
-  textAlign: "center",
-  color: "#f5f6fa",
-  border: "1px solid #2e3244",
-  position: "relative",
-};
-
-const logoutButtonStyle: React.CSSProperties = {
-  background: "#e74c3c",
-  borderColor: "#e74c3c",
-  color: "#fff",
-  fontWeight: 500,
-  borderRadius: 8,
-};
-
-const cancelButtonStyle: React.CSSProperties = {
-  marginTop: 10,
-  background: "transparent",
-  border: "1px solid #35394a",
-  color: "#b0b4c1",
-  borderRadius: 8,
-};
-
-const dividerStyle: React.CSSProperties = {
-  margin: "20px 0 16px 0",
-  borderTop: "1px solid #35394a",
-};
-
-const themeSwitchStyle: React.CSSProperties = {
-  marginLeft: 8,
-  marginTop: 16,
-  display: "inline-block",
-};
-
-// Add these props to the component's props type/interface:
-interface UserProfileProps {
-  // onLogout: () => void;
-  onThemeToggle?: () => void;
-  theme?: "dark" | "light";
-}
-
-interface UserPopoverProps {
-  userInfo: { name: string; email: string };
-  onLogout: () => void;
-  onCancel: () => void;
-  onThemeToggle?: () => void;
-  theme?: "dark" | "light";
-}
+import { Button } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 // Update the component signature:
-const UserProfile: React.FC<UserProfileProps> = () => {
+const UserProfile: React.FC = () => {
   const [showPopover, setShowPopover] = useState(false);
 
   // You can fetch/display real user info here if available
