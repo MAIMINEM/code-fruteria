@@ -89,10 +89,7 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => {
-      window.removeEventListener(
-        "panel-drag-start",
-        handlePanelDragStart as any,
-      );
+      window.removeEventListener("panel-drag-start", handlePanelDragStart as any);
       window.removeEventListener("panel-drag-end", handlePanelDragEnd as any);
       window.removeEventListener("keydown", handleKeyDown);
     };
@@ -134,15 +131,11 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
         handleDragOver(e);
         onDragOver(e);
       }}
-      // Remove onDragLeave here, handled by effect above
     >
       {children}
-      <GridDropOverlay
-        rows={gridRows}
-        cols={gridCols}
-        activeCell={activeCell}
-        visible={dragging || isPanelDragging}
-      />
+      <GridDropOverlay rows={gridRows} cols={gridCols} activeCell={activeCell} visible={dragging || isPanelDragging} />
     </div>
   );
 };
+
+export default React.memo(MainWorkspace);

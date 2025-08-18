@@ -2,7 +2,7 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
-import NotFound from "../pages/NotFound";
+import NotFound from "../pages/NotFoundPage";
 
 const AppRoutes = createBrowserRouter([
   {

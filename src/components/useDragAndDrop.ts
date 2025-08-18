@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { DragEvent } from "react";
+import { generateUniqueKey } from "../utils/generateUniqueKey";
 
 type OpenPanel = {
   id: string;
@@ -38,7 +39,7 @@ export function useDragAndDrop({
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
   const onNavDragStart = (key: string) => (e: DragEvent<HTMLLIElement>) => {
-    setDragNavPanelKey(key);
+    setDragNavPanelKey(generateUniqueKey(key));
     e.dataTransfer.setData("panelKey", key);
   };
 
