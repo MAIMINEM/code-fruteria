@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 // Example: check localStorage for login status
 function isAuthenticated() {
-  return localStorage.getItem("isLoggedIn") === "true";
+  return localStorage.getItem("authtoken") !== null;
 }
 
 export function withAuth<T>(WrappedComponent: ComponentType<T>) {

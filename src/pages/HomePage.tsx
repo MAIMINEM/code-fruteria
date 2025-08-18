@@ -1,6 +1,5 @@
 import React, { useState, FC, useEffect } from "react";
 import ResizableDraggablePanel from "../components/ResizableDraggablePanel";
-
 import { MainWorkspace } from "../components/MainWorkspace";
 import UserProfile from "../components/UserProfile";
 import { panelList } from "../panelList";
@@ -8,9 +7,7 @@ import { getGridCellPosition } from "../utils/utils";
 import { useThemeStore } from "../store/themeStore";
 import { useDragAndDrop } from "./useDragAndDrop";
 import { NAV_BAR_HEIGHT, INACTIVITY_LIMIT, THEME_KEY, GRID_COLS, GRID_ROWS } from "../constants/constants";
-import { isLoggedIn } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
-
 import Sidebar from "./SideBar";
 /**
  * Represents an open panel's state and position.
@@ -30,9 +27,8 @@ type OpenPanel = {
  * Main application component.
  */
 const HomePage: FC = () => {
-  const [loggedIn, setLoggedIn] = useState(isLoggedIn());
   const [openPanels, setOpenPanels] = useState<OpenPanel[]>([]);
-  const [navOpen, setNavOpen] = useState<boolean>(false);
+  const [navOpen, setNavOpen] = useState<boolean>(true);
 
   // Use extracted drag-and-drop hook
   const {
@@ -92,7 +88,7 @@ const HomePage: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!loggedIn) {
+    if (localStorage.getItem("authToken") === null) {
       // User is not logged in, redirect to login page
       navigate("/login");
     }
@@ -105,7 +101,6 @@ const HomePage: FC = () => {
     const resetTimer = () => {
       if (timer) clearTimeout(timer);
       timer = setTimeout(() => {
-        localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("authToken");
       }, INACTIVITY_LIMIT);
     };
@@ -149,7 +144,7 @@ const HomePage: FC = () => {
           style={{
             flex: 1,
             position: "relative",
-            background: "#232b3e",
+            background: "var(--background-color)",
             overflow: "hidden",
             height: "100%",
             width: "100%",
@@ -159,7 +154,7 @@ const HomePage: FC = () => {
           <div
             style={{
               width: "100%",
-              background: "linear-gradient(90deg, #2b3556 0%, #3e4a6b 100%)",
+              background: "linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%)",
               color: "#fff",
               padding: "0.5rem 1.5rem",
               fontWeight: 600,
@@ -172,7 +167,7 @@ const HomePage: FC = () => {
               alignItems: "center",
               boxShadow: "0 2px 8px #0002",
               minHeight: NAV_BAR_HEIGHT,
-              borderBottom: "1px solid #3e4a6b",
+              borderBottom: "1px solid var(--secondary-color)",
             }}
           >
             {/* Hamburger/X icon */}
@@ -234,8 +229,8 @@ const HomePage: FC = () => {
             <div style={{ marginRight: 32 }}>
               <UserProfile
                 onLogout={() => {
-                  localStorage.removeItem("isLoggedIn");
-                  // window.dispatchEvent(new Event("login-success"));
+                  localStorage.removeItem("authToken");
+
                   navigate("/login"); // Redirect to login page after logout
                 }}
                 onThemeToggle={handleThemeToggle}
@@ -243,8 +238,9 @@ const HomePage: FC = () => {
               />
             </div>
           </div>
+
           {openPanels.length === 0 ? (
-            <div style={{ color: "#888", textAlign: "center", marginTop: "2rem" }}>
+            <div style={{ color: "var(--text-color)", textAlign: "center", marginTop: "2rem" }}>
               No panels open.
               <br />
               Drag one from the navigation bar.

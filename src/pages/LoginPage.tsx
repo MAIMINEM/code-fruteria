@@ -49,7 +49,6 @@ const LoginPage: React.FC = React.memo(() => {
         const res = await APIClient.post("/login", values);
         const { token } = res.data;
         if (token) {
-          localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("authToken", token);
           navigate("/app");
         } else {

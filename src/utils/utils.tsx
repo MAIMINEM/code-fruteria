@@ -1,12 +1,6 @@
 import { GRID_COLS, GRID_ROWS, THEME_KEY } from "../constants/constants";
 
 /**
- * Checks if the user is logged in.
- * @returns {boolean}
- */
-const isLoggedIn = () => localStorage.getItem("isLoggedIn") === "true";
-
-/**
  * Calculates the position and size of a grid cell.
  * @param row Row index
  * @param col Column index
@@ -61,4 +55,4 @@ const getInitialTheme = () => {
   return theme;
 };
 
-export { isLoggedIn, getGridCellPosition, getDefaultPanelPosition, getInitialTheme };
+export { getGridCellPosition, getDefaultPanelPosition, getInitialTheme };
