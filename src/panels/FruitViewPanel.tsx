@@ -89,6 +89,7 @@ export const FruitViewPanel: React.FC = () => {
               value={amount}
               onChange={(value) => setAmount(Number(value))}
               style={{ width: 80 }}
+            
             />
           </Form.Item>
           <Form.Item>

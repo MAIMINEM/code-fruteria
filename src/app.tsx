@@ -8,6 +8,8 @@ import UserProfile from "./components/UserProfile";
 import { panelList } from "./panelList";
 import { getInitialTheme, getGridCellPosition } from "./utils/utils";
 import { NAV_BAR_HEIGHT, INACTIVITY_LIMIT, THEME_KEY, GRID_COLS, GRID_ROWS } from "./constants/constants";
+import { isLoggedIn } from "./utils/utils";
+import { Navigate, useNavigate } from "react-router-dom";
 
 /**
  * Represents an open panel's state and position.
@@ -27,6 +29,7 @@ type OpenPanel = {
  * Main application component.
  */
 const App: FC = () => {
+  const [loggedIn, setLoggedIn] = useState(isLoggedIn());
   const [openPanels, setOpenPanels] = useState<OpenPanel[]>([]);
   const [dragNavPanelKey, setDragNavPanelKey] = useState<string | null>(null);
   const [navOpen, setNavOpen] = useState<boolean>(false);
@@ -133,6 +136,15 @@ const App: FC = () => {
     );
   };
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loggedIn) {
+      // User is not logged in, redirect to login page
+      navigate("/login");
+    }
+  });
+
   // Inactivity logout timer
   React.useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -141,7 +153,7 @@ const App: FC = () => {
       if (timer) clearTimeout(timer);
       timer = setTimeout(() => {
         localStorage.removeItem("isLoggedIn");
-        window.dispatchEvent(new Event("login-success"));
+        localStorage.removeItem("authToken");
       }, INACTIVITY_LIMIT);
     };
 
@@ -351,7 +363,8 @@ const App: FC = () => {
               <UserProfile
                 onLogout={() => {
                   localStorage.removeItem("isLoggedIn");
-                  window.dispatchEvent(new Event("login-success"));
+                  // window.dispatchEvent(new Event("login-success"));
+                  navigate("/login"); // Redirect to login page after logout
                 }}
                 onThemeToggle={handleThemeToggle}
                 theme={theme}

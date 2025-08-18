@@ -20,6 +20,37 @@
 
 @border-radius: 4px;
 
+.ant-input:focus,
+.ant-input-focused {
+  border-color: @primary-color;
+  box-shadow: 0 0 0 2px fade(@primary-color, 20%);
+}
+
+.ant-input-affix-wrapper:focus-within,
+.ant-input-affix-wrapper-focused {
+  border-color: @primary-color;
+  box-shadow: 0 0 0 2px fade(@primary-color, 20%);
+}
+
+// .ant-input-number:focus,
+// .ant-input-number-focused {
+//   border-color: @primary-color;
+//   box-shadow: 0 0 0 2px fade(@primary-color, 20%);
+// }
+
+// .ant-input-number:focus,
+// .ant-input-number-focused,
+// .ant-input-number-input:focus {
+//   border-color: @light-primary-color; // or @dark-primary-color for dark theme
+//   box-shadow: 0 0 0 2px fade(@light-primary-color, 20%);
+// }
+// .theme-dark .ant-input-number:focus,
+// .theme-dark .ant-input-number-focused,
+// .theme-dark .ant-input-number-input:focus {
+//   border-color: @dark-primary-color;
+//   box-shadow: 0 0 0 2px fade(@dark-primary-color, 20%);
+// }
+
 // Global Styles
 body {
   background: @background-color;

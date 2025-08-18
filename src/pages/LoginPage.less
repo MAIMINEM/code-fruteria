@@ -43,7 +43,7 @@
   text-shadow: 0 1px 2px var(--border-color);
 }
 
-.login-label {
+.form-label {
   color: var(--text-color);
   font-weight: 500;
 }
@@ -57,9 +57,11 @@
 
 .login-button {
   font-weight: 600;
-  letter-spacing: 1;
+  letter-spacing: 1px;
   background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  border: none;
+
+  border: 1px solid transparent;
   color: var(--text-color);
   box-shadow: 0 2px 8px var(--shadow-color);
+  transition: border-color 0.2s;
 }

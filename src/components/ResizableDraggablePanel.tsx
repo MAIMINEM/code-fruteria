@@ -37,7 +37,7 @@ const ResizableDraggablePanel: React.FC<Props> = ({
       size={{ width, height }}
       minWidth={minWidth || 150}
       minHeight={minHeight || 100}
-      bounds="window"
+      bounds="parent"
       onDragStop={(_e, d) => {
         onMove(d.x - x, d.y - y);
         window.dispatchEvent(new Event("panel-drag-end"));
@@ -56,9 +56,14 @@ const ResizableDraggablePanel: React.FC<Props> = ({
       style={{ zIndex: 1000 }}
       dragHandleClassName="panel-drag-handle"
       enableResizing={{
-        bottomRight: true,
+        top: true,
         right: true,
         bottom: true,
+        left: true,
+        topRight: true,
+        bottomRight: true,
+        bottomLeft: true,
+        topLeft: true,
       }}
     >
       <div

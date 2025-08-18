@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withAuth } from "./withAuth";
 import { Form, Input, Button, Typography, Alert, Card } from "antd";
 
 type LoginComponentProps = {
@@ -55,11 +56,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLoginSuccess }) => {
         </Typography.Title>
         <Form layout="vertical" onFinish={onFinish} autoComplete="off">
           <Form.Item
-            label={
-              <span style={{ color: "#e0e0e0", fontWeight: 500 }}>
-                Username
-              </span>
-            }
+            label={<span style={{ color: "#e0e0e0", fontWeight: 500 }}>Username</span>}
             name="username"
             rules={[{ required: true, message: "Please input your username!" }]}
           >
@@ -74,11 +71,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLoginSuccess }) => {
             />
           </Form.Item>
           <Form.Item
-            label={
-              <span style={{ color: "#e0e0e0", fontWeight: 500 }}>
-                Password
-              </span>
-            }
+            label={<span style={{ color: "#e0e0e0", fontWeight: 500 }}>Password</span>}
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
@@ -119,4 +112,4 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLoginSuccess }) => {
   );
 };
 
-export default LoginComponent;
+export default withAuth(LoginComponent);
