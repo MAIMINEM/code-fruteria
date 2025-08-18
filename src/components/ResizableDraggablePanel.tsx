@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { throttle } from "../utils/utils"; // Adjust the import path as necessary
 import { Rnd } from "react-rnd";
 
 type Props = {
@@ -30,6 +31,9 @@ const ResizableDraggablePanel: React.FC<Props> = ({
   onMove,
   onResize,
 }) => {
+  // Throttle the onResize callback to fire at most every 50ms
+  const throttledOnResize = useMemo(() => throttle(onResize, 50), [onResize]);
+
   return (
     <Rnd
       default={{ x, y, width, height }}
@@ -45,10 +49,15 @@ const ResizableDraggablePanel: React.FC<Props> = ({
       onDragStart={() => {
         window.dispatchEvent(new Event("panel-drag-start"));
       }}
+      onResize={(_e, _dir, ref) => {
+        const newWidth = parseInt(ref.style.width, 10);
+        const newHeight = parseInt(ref.style.height, 10);
+        throttledOnResize(newWidth - width, newHeight - height);
+      }}
       onResizeStop={(_e, _dir, ref, _delta, position) => {
         const newWidth = parseInt(ref.style.width, 10);
         const newHeight = parseInt(ref.style.height, 10);
-        onResize(newWidth - width, newHeight - height);
+        // onResize(newWidth - width, newHeight - height);
         if (position) {
           onMove(position.x - x, position.y - y);
         }
@@ -117,7 +126,5 @@ const ResizableDraggablePanel: React.FC<Props> = ({
     </Rnd>
   );
 };
-
-// (Old code removed, see above for new Rnd-based implementation)
 
 export default ResizableDraggablePanel;

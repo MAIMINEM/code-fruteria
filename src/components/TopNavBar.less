@@ -1,0 +1,57 @@
+// TopNavBar styles
+
+.top-navbar {
+  width: 100%;
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 1px;
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px #0002;
+  min-height: 48px; /* fallback if NAV_BAR_HEIGHT is not available */
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+.top-navbar-toggle {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 26px;
+  cursor: pointer;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  height: 40px;
+  width: 40px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.top-navbar-toggle.open {
+  box-shadow: 0 2px 8px #0002;
+}
+
+.top-navbar-title {
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 0 1px 2px #0006;
+  user-select: none;
+  text-transform: uppercase;
+}
+
+.top-navbar-spacer {
+  flex: 1;
+}
+
+.top-navbar-profile {
+  margin-right: 32px;
+}

@@ -9,6 +9,7 @@ import { useDragAndDrop } from "../components/useDragAndDrop";
 import { NAV_BAR_HEIGHT, INACTIVITY_LIMIT, THEME_KEY, GRID_COLS, GRID_ROWS } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/SideNavBar";
+import "./HomePage.less";
 
 /**
  * Represents an open panel's state and position.
@@ -83,7 +84,7 @@ const HomePage: FC = () => {
   }, [authToken]);
 
   return (
-    <div className={`app-root theme-${theme}`} style={{ display: "flex", height: "100vh" }}>
+    <div className={"home"}>
       {/* Navigation Bar */}
       <Sidebar
         isOpen={navIsOpen}
@@ -101,21 +102,12 @@ const HomePage: FC = () => {
         gridRows={GRID_ROWS}
         gridCols={GRID_COLS}
       >
-        <main
-          style={{
-            flex: 1,
-            position: "relative",
-            background: "var(--background-color)",
-            overflow: "hidden",
-            height: "100%",
-            width: "100%",
-          }}
-        >
+        <main className="main">
           {/* Top nav branding */}
           <TopNavBar navOpen={navIsOpen} setNavOpen={setNavIsOpen} />
 
           {openPanels.length === 0 ? (
-            <div style={{ color: "var(--text-color)", textAlign: "center", marginTop: "2rem" }}>
+            <div className="blank-content">
               No panels open.
               <br />
               Drag one from the navigation bar.

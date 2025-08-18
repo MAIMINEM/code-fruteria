@@ -75,7 +75,7 @@ export function useDragAndDrop({
     if (openPanels.some((p) => p.key === panelDef.key)) {
       setDragNavPanelKey(null);
 
-      antdMessage.error(`Panel with same ID has been opened.`);
+      antdMessage.error(`${panelDef.title} with same  has been opened.`);
       return;
     }
 

@@ -1,6 +1,6 @@
 import React from "react";
 import UserProfile from "./UserProfile";
-import { NAV_BAR_HEIGHT } from "../constants/constants";
+import "./TopNavBar.less";
 
 interface TopNavBarProps {
   navOpen: boolean;
@@ -8,44 +8,11 @@ interface TopNavBarProps {
 }
 
 const TopNavBar: React.FC<TopNavBarProps> = ({ navOpen, setNavOpen }) => (
-  <div
-    style={{
-      width: "100%",
-      background: "linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%)",
-      color: "#fff",
-      padding: "0.5rem 1.5rem",
-      fontWeight: 600,
-      fontSize: 20,
-      letterSpacing: 1,
-      position: "sticky" as React.CSSProperties["position"],
-      top: 0,
-      zIndex: 2000,
-      display: "flex",
-      alignItems: "center",
-      boxShadow: "0 2px 8px #0002",
-      minHeight: NAV_BAR_HEIGHT,
-      borderBottom: "1px solid var(--secondary-color)",
-    }}
-  >
+  <div className="top-navbar">
     {/* Hamburger/X icon */}
     <button
+      className={`top-navbar-toggle${navOpen ? " open" : ""}`}
       onClick={() => setNavOpen((v) => !v)}
-      style={{
-        background: "transparent",
-        border: "none",
-        color: "#fff",
-        fontSize: 26,
-        cursor: "pointer",
-        marginRight: 20,
-        display: "flex",
-        alignItems: "center",
-        padding: 0,
-        height: 40,
-        width: 40,
-        borderRadius: 8,
-        transition: "background 0.2s",
-        boxShadow: navOpen ? "0 2px 8px #0002" : undefined,
-      }}
       aria-label="Toggle navigation"
     >
       <span style={{ display: "inline-block", width: 28, height: 28 }}>
@@ -66,24 +33,11 @@ const TopNavBar: React.FC<TopNavBarProps> = ({ navOpen, setNavOpen }) => (
       </span>
     </button>
     {/* App title */}
-    <span
-      style={{
-        fontFamily: "monospace",
-        fontWeight: 700,
-        fontSize: 22,
-        letterSpacing: 2,
-        color: "#fff",
-        textShadow: "0 1px 2px #0006",
-        userSelect: "none",
-        textTransform: "uppercase",
-      }}
-    >
-      fruteria
-    </span>
+  <span className="top-navbar-title">fruteria</span>
     {/* Spacer to push UserProfile to the right */}
-    <div style={{ flex: 1 }} />
+  <div className="top-navbar-spacer" />
     {/* UserProfile on the right */}
-    <div style={{ marginRight: 32 }}>
+    <div className="top-navbar-profile">
       <UserProfile />
     </div>
   </div>

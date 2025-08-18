@@ -59,4 +59,27 @@ function monitorUserActivity(onInactive: () => void, timeout: number) {
   };
 }
 
-export { getGridCellPosition, getDefaultPanelPosition, monitorUserActivity };
+// Throttle utility: ensures fn is called at most once every 'wait' ms that optimize the performance of resizing
+function throttle<T extends (...args: any[]) => void>(fn: T, wait: number): T {
+  let lastCall = 0;
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  let lastArgs: any[];
+  const throttled = function (this: any, ...args: any[]) {
+    const now = Date.now();
+    lastArgs = args;
+    if (now - lastCall >= wait) {
+      lastCall = now;
+      fn.apply(this, args);
+    } else {
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        lastCall = Date.now();
+        timeout = null;
+        fn.apply(this, lastArgs);
+      }, wait - (now - lastCall));
+    }
+  };
+  return throttled as T;
+}
+
+export { getGridCellPosition, getDefaultPanelPosition, monitorUserActivity, throttle };
