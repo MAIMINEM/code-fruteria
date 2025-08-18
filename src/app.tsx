@@ -9,7 +9,7 @@ import { panelList } from "./panelList";
 import { getInitialTheme, getGridCellPosition } from "./utils/utils";
 import { NAV_BAR_HEIGHT, INACTIVITY_LIMIT, THEME_KEY, GRID_COLS, GRID_ROWS } from "./constants/constants";
 import { isLoggedIn } from "./utils/utils";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Represents an open panel's state and position.
