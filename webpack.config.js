@@ -54,12 +54,13 @@ module.exports = {
     historyApiFallback: true,
     port: 8080,
     open: true,
-    proxy: {
-      "/auth": {
+    proxy: [
+      {
+        context: ["/auth"],
         target: "http://localhost:3000",
         changeOrigin: true,
         secure: false,
       },
-    },
+    ],
   },
 };

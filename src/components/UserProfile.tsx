@@ -1,3 +1,4 @@
+import UserPopover from "./UserPopover";
 import React, { useState } from "react";
 import { Button, Typography, Switch } from "antd";
 // Use canonical AntD import for Typography.Text
@@ -46,7 +47,7 @@ const themeSwitchStyle: React.CSSProperties = {
 
 // Add these props to the component's props type/interface:
 interface UserProfileProps {
-  onLogout: () => void;
+  // onLogout: () => void;
   onThemeToggle?: () => void;
   theme?: "dark" | "light";
 }
@@ -60,8 +61,8 @@ interface UserPopoverProps {
 }
 
 // Update the component signature:
-const UserProfile: React.FC<UserProfileProps> = ({ onLogout, onThemeToggle, theme }) => {
-  const [visible, setVisible] = useState(false);
+const UserProfile: React.FC<UserProfileProps> = () => {
+  const [showPopover, setShowPopover] = useState(false);
 
   // You can fetch/display real user info here if available
   const userInfo = {
@@ -69,51 +70,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ onLogout, onThemeToggle, them
     email: "user@email.com",
   };
 
-  const handleOpen = () => setVisible(true);
-  const handleClose = () => setVisible(false);
+  const handlePopoverVisibility = () => {
+    setShowPopover(!showPopover);
+  };
 
-  const UserPopover: React.FC<UserPopoverProps> = ({ userInfo, onLogout, onCancel, onThemeToggle, theme }) => (
-    <div style={popoverContainerStyle}>
-      <Typography.Text strong style={{ fontSize: 18, color: "#f5f6fa" }}>
-        {userInfo.name}
-      </Typography.Text>
-      <br />
-      <Typography.Text type="secondary" style={{ fontSize: 14, color: "#b0b4c1" }}>
-        {userInfo.email}
-      </Typography.Text>
-
-      <div style={dividerStyle} />
-      <div style={{ marginBottom: 16, fontSize: 15, color: "#b0b4c1" }}>Do you want to log out?</div>
-      <Button
-        type="primary"
-        block
-        style={logoutButtonStyle}
-        onClick={() => {
-          onCancel();
-          onLogout();
-        }}
-      >
-        Log out
-      </Button>
-      <Button block style={cancelButtonStyle} onClick={onCancel}>
-        Cancel
-      </Button>
-      {onThemeToggle && (
-        <div style={themeSwitchStyle}>
-          <Switch
-            checkedChildren={<CheckOutlined />}
-            unCheckedChildren={<CloseOutlined />}
-            checked={theme === "dark"}
-            onChange={onThemeToggle}
-            defaultChecked
-          />
-          <span style={{ marginLeft: 8, color: "#b0b4c1", fontSize: 14 }}>
-            {theme === "dark" ? "Light" : "Dark"} Theme
-          </span>
-        </div>
-      )}
-    </div>
-  );
+  // ...UserPopover is now imported from its own file
 
   return (
     <div
@@ -129,7 +90,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ onLogout, onThemeToggle, them
         <Button
           shape="circle"
           icon={<UserOutlined />}
-          onClick={handleOpen}
+          onClick={handlePopoverVisibility}
           style={{
             background: "#232634",
             border: "1px solid #35394a",
@@ -137,7 +98,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ onLogout, onThemeToggle, them
           }}
         />
       </div>
-      {visible && (
+      {showPopover && (
         <div
           style={{
             position: "fixed",
@@ -152,16 +113,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ onLogout, onThemeToggle, them
             justifyContent: "center",
             transition: "background 0.2s",
           }}
-          onClick={handleClose}
+          onClick={handlePopoverVisibility}
         >
           <div style={{ pointerEvents: "auto" }} onClick={(e) => e.stopPropagation()}>
-            <UserPopover
-              userInfo={userInfo}
-              onLogout={onLogout}
-              onCancel={handleClose}
-              onThemeToggle={onThemeToggle}
-              theme={theme}
-            />
+            <UserPopover userInfo={userInfo} onCancel={handlePopoverVisibility} />
           </div>
         </div>
       )}

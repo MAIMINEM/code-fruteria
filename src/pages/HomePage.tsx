@@ -9,6 +9,7 @@ import { useDragAndDrop } from "./useDragAndDrop";
 import { NAV_BAR_HEIGHT, INACTIVITY_LIMIT, THEME_KEY, GRID_COLS, GRID_ROWS } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./SideBar";
+
 /**
  * Represents an open panel's state and position.
  */
@@ -29,6 +30,7 @@ type OpenPanel = {
 const HomePage: FC = () => {
   const [openPanels, setOpenPanels] = useState<OpenPanel[]>([]);
   const [navOpen, setNavOpen] = useState<boolean>(true);
+  const [authToken, setAuthToken] = useState<string | null>(localStorage.getItem("authToken"));
 
   // Use extracted drag-and-drop hook
   const {
@@ -50,9 +52,6 @@ const HomePage: FC = () => {
     getGridCellPosition,
   });
   const theme = useThemeStore((s) => s.theme);
-  const toggleTheme = useThemeStore((s) => s.toggleTheme);
-
-  // ...drag and drop logic is now handled by useDragAndDrop
 
   /**
    * Closes a panel by id.
@@ -88,11 +87,11 @@ const HomePage: FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("authToken") === null) {
+    if (authToken === null) {
       // User is not logged in, redirect to login page
       navigate("/login");
     }
-  });
+  }, [authToken]);
 
   // Inactivity logout timer
   React.useEffect(() => {
@@ -102,6 +101,7 @@ const HomePage: FC = () => {
       if (timer) clearTimeout(timer);
       timer = setTimeout(() => {
         localStorage.removeItem("authToken");
+        setAuthToken(null);
       }, INACTIVITY_LIMIT);
     };
 
@@ -118,7 +118,6 @@ const HomePage: FC = () => {
   // Theme class is now handled by zustand theme store effect
 
   // Theme toggle now uses zustand
-  const handleThemeToggle = toggleTheme;
 
   return (
     <div className={`app-root theme-${theme}`} style={{ display: "flex", height: "100vh" }}>
@@ -228,12 +227,11 @@ const HomePage: FC = () => {
             {/* UserProfile on the right */}
             <div style={{ marginRight: 32 }}>
               <UserProfile
-                onLogout={() => {
-                  localStorage.removeItem("authToken");
+                // onLogout={() => {
+                //   localStorage.removeItem("authToken");
 
-                  navigate("/login"); // Redirect to login page after logout
-                }}
-                onThemeToggle={handleThemeToggle}
+                //   navigate("/login"); // Redirect to login page after logout
+                // }}
                 theme={theme}
               />
             </div>
