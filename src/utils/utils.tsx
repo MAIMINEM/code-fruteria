@@ -37,4 +37,26 @@ const getDefaultPanelPosition = (count: number) => ({
   height: 420,
 });
 
-export { getGridCellPosition, getDefaultPanelPosition };
+// Utility to monitor user activity and call a callback on inactivity
+// Usage: const stop = monitorUserActivity(() => { ... }, 5 * 60 * 1000)
+// Call stop() to remove listeners and clear timer
+
+function monitorUserActivity(onInactive: () => void, timeout: number) {
+  let timer: ReturnType<typeof setTimeout> | null = null;
+
+  const resetTimer = () => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(onInactive, timeout);
+  };
+
+  const activityEvents = ["mousemove", "keydown", "mousedown", "touchstart"];
+  activityEvents.forEach((event) => window.addEventListener(event, resetTimer));
+  resetTimer();
+
+  return function stop() {
+    if (timer) clearTimeout(timer);
+    activityEvents.forEach((event) => window.removeEventListener(event, resetTimer));
+  };
+}
+
+export { getGridCellPosition, getDefaultPanelPosition, monitorUserActivity };

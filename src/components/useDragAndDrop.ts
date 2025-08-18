@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { DragEvent } from "react";
-import { generateUniqueKey } from "../utils/generateUniqueKey";
+
+import { message as antdMessage } from "antd";
 
 type OpenPanel = {
   id: string;
@@ -39,7 +40,7 @@ export function useDragAndDrop({
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
 
   const onNavDragStart = (key: string) => (e: DragEvent<HTMLLIElement>) => {
-    setDragNavPanelKey(generateUniqueKey(key));
+    setDragNavPanelKey(key);
     e.dataTransfer.setData("panelKey", key);
   };
 
@@ -70,6 +71,14 @@ export function useDragAndDrop({
       x = pos.x;
       y = pos.y;
     }
+    // Only open if not already open by key
+    if (openPanels.some((p) => p.key === panelDef.key)) {
+      setDragNavPanelKey(null);
+
+      antdMessage.error(`Panel with same ID has been opened.`);
+      return;
+    }
+
     setOpenPanels([
       ...openPanels,
       {

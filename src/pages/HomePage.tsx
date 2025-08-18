@@ -1,10 +1,9 @@
 import React, { useState, FC, useEffect, useCallback } from "react";
 import ResizableDraggablePanel from "../components/ResizableDraggablePanel";
 import { MainWorkspace } from "../components/MainWorkspace";
-import UserProfile from "../components/UserProfile";
 import TopNavBar from "../components/TopNavBar";
 import { panelList } from "../panelList";
-import { getGridCellPosition } from "../utils/utils";
+import { getGridCellPosition, monitorUserActivity } from "../utils/utils";
 import { useThemeStore } from "../store/themeStore";
 import { useDragAndDrop } from "../components/useDragAndDrop";
 import { NAV_BAR_HEIGHT, INACTIVITY_LIMIT, THEME_KEY, GRID_COLS, GRID_ROWS } from "../constants/constants";
@@ -30,7 +29,7 @@ type OpenPanel = {
  */
 const HomePage: FC = () => {
   const [openPanels, setOpenPanels] = useState<OpenPanel[]>([]);
-  const [navOpen, setNavOpen] = useState(true);
+  const [navIsOpen, setNavIsOpen] = useState(true);
   const [authToken, setAuthToken] = useState(() => localStorage.getItem("authToken"));
 
   const theme = useThemeStore((s) => s.theme);
@@ -60,65 +59,39 @@ const HomePage: FC = () => {
   }, []);
 
   // Use extracted drag-and-drop hook
-  const {
-    onNavDragStart,
-    handleGridDropInfo,
-    onMainDrop,
-    onMainDragOver,
-    dragNavPanelKey,
-    setDragNavPanelKey,
-    dropCell,
-    containerSize,
-    setDropCell,
-    setContainerSize,
-  } = useDragAndDrop({
-    panelList,
-    openPanels,
-    setOpenPanels,
-    NAV_BAR_HEIGHT,
-    getGridCellPosition,
-  });
+  const { onNavDragStart, handleGridDropInfo, onMainDrop, onMainDragOver, dragNavPanelKey, setDragNavPanelKey } =
+    useDragAndDrop({
+      panelList,
+      openPanels,
+      setOpenPanels,
+      NAV_BAR_HEIGHT,
+      getGridCellPosition,
+    });
+
+  useEffect(() => {
+    const stop = monitorUserActivity(() => {
+      localStorage.removeItem("authToken");
+      setAuthToken(null);
+    }, INACTIVITY_LIMIT);
+    return stop;
+  }, []);
 
   useEffect(() => {
     if (authToken == null) {
       navigate("/login");
     }
-  }, [authToken, navigate]);
-
-  // Inactivity logout timer
-  useEffect(() => {
-    let timer: NodeJS.Timeout | null = null;
-    const resetTimer = () => {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => {
-        localStorage.removeItem("authToken");
-        setAuthToken(null);
-      }, INACTIVITY_LIMIT);
-    };
-    const activityEvents = ["mousemove", "keydown", "mousedown", "touchstart"];
-    activityEvents.forEach((event) => window.addEventListener(event, resetTimer));
-    resetTimer();
-    return () => {
-      if (timer) clearTimeout(timer);
-      activityEvents.forEach((event) => window.removeEventListener(event, resetTimer));
-    };
-  }, []);
-
-  // Theme class is now handled by zustand theme store effect
-
-  // Theme toggle now uses zustand
+  }, [authToken]);
 
   return (
     <div className={`app-root theme-${theme}`} style={{ display: "flex", height: "100vh" }}>
       {/* Navigation Bar */}
-      {navOpen && (
-        <Sidebar
-          panelList={panelList}
-          dragNavPanelKey={dragNavPanelKey}
-          onNavDragStart={onNavDragStart}
-          setDragNavPanelKey={setDragNavPanelKey}
-        />
-      )}
+      <Sidebar
+        isOpen={navIsOpen}
+        panelList={panelList}
+        dragNavPanelKey={dragNavPanelKey}
+        onNavDragStart={onNavDragStart}
+        setDragNavPanelKey={setDragNavPanelKey}
+      />
 
       {/* Panel Area */}
       <MainWorkspace
@@ -139,7 +112,7 @@ const HomePage: FC = () => {
           }}
         >
           {/* Top nav branding */}
-          <TopNavBar navOpen={navOpen} setNavOpen={setNavOpen} />
+          <TopNavBar navOpen={navIsOpen} setNavOpen={setNavIsOpen} />
 
           {openPanels.length === 0 ? (
             <div style={{ color: "var(--text-color)", textAlign: "center", marginTop: "2rem" }}>
