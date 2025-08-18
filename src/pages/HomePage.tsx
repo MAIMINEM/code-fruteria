@@ -1,17 +1,17 @@
 import React, { useState, FC, useEffect } from "react";
 import ResizableDraggablePanel from "../components/ResizableDraggablePanel";
-import TermsIcon from "../assets/Icons/TermsIcon";
-import AboutIcon from "../assets/Icons/AboutIcon";
-import FruitViewIcon from "../assets/Icons/FruitViewIcon";
+
 import { MainWorkspace } from "../components/MainWorkspace";
 import UserProfile from "../components/UserProfile";
 import { panelList } from "../panelList";
-import { getInitialTheme, getGridCellPosition } from "../utils/utils";
+import { getGridCellPosition } from "../utils/utils";
+import { useThemeStore } from "../store/themeStore";
 import { useDragAndDrop } from "./useDragAndDrop";
 import { NAV_BAR_HEIGHT, INACTIVITY_LIMIT, THEME_KEY, GRID_COLS, GRID_ROWS } from "../constants/constants";
 import { isLoggedIn } from "../utils/utils";
 import { useNavigate } from "react-router-dom";
 
+import Sidebar from "./SideBar";
 /**
  * Represents an open panel's state and position.
  */
@@ -53,7 +53,8 @@ const HomePage: FC = () => {
     NAV_BAR_HEIGHT,
     getGridCellPosition,
   });
-  const [theme, setTheme] = useState<"dark" | "light">(getInitialTheme());
+  const theme = useThemeStore((s) => s.theme);
+  const toggleTheme = useThemeStore((s) => s.toggleTheme);
 
   // ...drag and drop logic is now handled by useDragAndDrop
 
@@ -119,102 +120,21 @@ const HomePage: FC = () => {
     };
   }, []);
 
-  // Set theme class on body or root
-  useEffect(() => {
-    document.body.classList.remove("theme-dark", "theme-light");
-    document.body.classList.add(`theme-${theme}`);
-  }, [theme]);
+  // Theme class is now handled by zustand theme store effect
 
-  /**
-   * Toggles the application theme between dark and light.
-   */
-  const handleThemeToggle = () => {
-    setTheme((prev) => {
-      const next = prev === "dark" ? "light" : "dark";
-      localStorage.setItem(THEME_KEY, next);
-      return next;
-    });
-  };
+  // Theme toggle now uses zustand
+  const handleThemeToggle = toggleTheme;
 
   return (
     <div className={`app-root theme-${theme}`} style={{ display: "flex", height: "100vh" }}>
       {/* Navigation Bar */}
       {navOpen && (
-        <nav
-          style={{
-            width: 90, // Increased width
-            background: "#232b3e",
-            padding: "0.5rem 0.25rem",
-            borderRight: "1px solid #3e4a6b",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            minWidth: 90, // Increased minWidth
-            boxSizing: "border-box",
-          }}
-        >
-          <ul
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: 0,
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            {panelList.map((panel) => (
-              <li
-                key={panel.key}
-                style={{
-                  marginBottom: 16,
-                  cursor: "grab",
-                  fontWeight: "normal",
-                  background: dragNavPanelKey === panel.key ? "#353b4a" : undefined,
-                  padding: 8,
-                  borderRadius: 10,
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: 13,
-                  color: "#e0e0e0",
-                  width: "100%",
-                  transition: "background 0.2s",
-                  textAlign: "center", // Center text
-                  minHeight: 64,
-                }}
-                draggable
-                onDragStart={onNavDragStart(panel.key)}
-                onDragEnd={() => setDragNavPanelKey(null)}
-                title={panel.title}
-              >
-                <span style={{ marginBottom: 4 }}>
-                  {panel.key === "fruitbook" ? (
-                    <TermsIcon />
-                  ) : panel.key === "fruitview" ? (
-                    <FruitViewIcon />
-                  ) : panel.key === "about" ? (
-                    <AboutIcon />
-                  ) : null}
-                </span>
-                <span
-                  style={{
-                    width: "100%",
-                    textAlign: "center", // Center text
-                    fontSize: 13,
-                    fontWeight: 500,
-                    lineHeight: 1.2,
-                    wordBreak: "break-word",
-                  }}
-                >
-                  {panel.title}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <Sidebar
+          panelList={panelList}
+          dragNavPanelKey={dragNavPanelKey}
+          onNavDragStart={onNavDragStart}
+          setDragNavPanelKey={setDragNavPanelKey}
+        />
       )}
 
       {/* Panel Area */}
