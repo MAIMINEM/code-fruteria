@@ -11,7 +11,7 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 // Register ag-grid modules (required for module-based builds)
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-import { fruits, columnDefs } from "./DruitBookFakeData";
+import { fruits, columnDefs } from "./FakeFruitBookData";
 
 const FruitBook: React.FC = () => {
   const [selectedFruit, setSelectedFruit] = useState<any | null>(null);
@@ -24,6 +24,11 @@ const FruitBook: React.FC = () => {
   // Memoize event handlers to avoid unnecessary re-renders
   const onRowDoubleClicked = useCallback((event: any) => {
     setSelectedFruit(event.data);
+    // Programmatically select the row (check the checkbox)
+    if (event.node && event.api) {
+      event.api.deselectAll();
+      event.node.setSelected(true);
+    }
   }, []);
 
   const onSelectionChanged = useCallback(() => {
