@@ -5,7 +5,6 @@ import AppRoutes from "./routes/AppRoutes";
 
 // add for antD compatible with React 19
 import "@ant-design/v5-patch-for-react-19";
-// import "antd/dist/reset.css";
 import "../styles/theme.less";
 
 // using react-router to manage page routers and navigation
