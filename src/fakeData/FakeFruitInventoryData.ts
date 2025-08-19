@@ -1,6 +1,6 @@
 import { ColDef } from "ag-grid-community";
 
-export const fruits = [
+const fakeFruitInventoryList = [
   {
     id: "F001",
     name: "Banana",
@@ -83,7 +83,7 @@ export const fruits = [
   },
 ];
 
-export const columnDefs: ColDef[] = [
+const inventoryColumnDefs: ColDef[] = [
   { headerName: "ID", field: "id", minWidth: 90 },
   { headerName: "Fruit", field: "name", minWidth: 120 },
   { headerName: "Country", field: "country", minWidth: 120 },
@@ -101,3 +101,5 @@ export const columnDefs: ColDef[] = [
   },
   { headerName: "Details", field: "details", minWidth: 180 },
 ];
+
+export { fakeFruitInventoryList, inventoryColumnDefs };

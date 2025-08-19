@@ -2,7 +2,7 @@ import React, { useState, FC, useEffect, useCallback } from "react";
 import ResizableDraggablePanel from "../components/ResizableDraggablePanel";
 import { MainWorkspace } from "../components/MainWorkspace";
 import TopNavBar from "../components/TopNavBar";
-import { panelList } from "../panels/FakePanelList";
+import fakePanelList from "../fakeData/FakePanelListData";
 import { getGridCellPosition, monitorUserActivity } from "../utils/utils";
 import { useThemeStore } from "../store/themeStore";
 import { useDragAndDrop } from "../components/useDragAndDrop";
@@ -61,7 +61,7 @@ const HomePage: FC = () => {
   // Use extracted drag-and-drop hook
   const { onNavDragStart, handleGridDropInfo, onMainDrop, onMainDragOver, dragNavPanelKey, setDragNavPanelKey } =
     useDragAndDrop({
-      panelList,
+      panelList: fakePanelList,
       openPanels,
       setOpenPanels,
       NAV_BAR_HEIGHT,
@@ -87,7 +87,7 @@ const HomePage: FC = () => {
       {/* Navigation Bar */}
       <Sidebar
         isOpen={navIsOpen}
-        panelList={panelList}
+        panelList={fakePanelList}
         dragNavPanelKey={dragNavPanelKey}
         onNavDragStart={onNavDragStart}
         setDragNavPanelKey={setDragNavPanelKey}

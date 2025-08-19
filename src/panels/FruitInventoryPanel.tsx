@@ -11,14 +11,14 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 // Register ag-grid modules (required for module-based builds)
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-import { fruits, columnDefs } from "./FakeFruitBookData";
+import { fakeFruitInventoryList, inventoryColumnDefs } from "../fakeData/FakeFruitInventoryData";
 
 const FruitInventoryPanel: React.FC = () => {
   const [selectedFruit, setSelectedFruit] = useState<any | null>(null);
   const gridRef = useRef<any>(null);
 
   // Memoize columnDefs and defaultColDef for performance
-  const memoizedColumnDefs = useMemo(() => columnDefs, []);
+  const memoizedColumnDefs = useMemo(() => inventoryColumnDefs, []);
   const memoizedDefaultColDef = useMemo(() => ({ flex: 1, resizable: true }), []);
 
   // Memoize event handlers to avoid unnecessary re-renders
@@ -42,14 +42,11 @@ const FruitInventoryPanel: React.FC = () => {
     <>
       <div className={`fruit-book-flex`}>
         <div className="fruit-book-container">
-          <div className="fruit-book-title-row">
-            <div className="fruit-book-title">Fruit Inventory</div>
-          </div>
           <div className="ag-theme-alpine fruit-book-grid">
             <AgGridReact<any>
               theme="legacy"
               ref={gridRef}
-              rowData={fruits}
+              rowData={fakeFruitInventoryList}
               columnDefs={memoizedColumnDefs}
               defaultColDef={memoizedDefaultColDef}
               headerHeight={38}

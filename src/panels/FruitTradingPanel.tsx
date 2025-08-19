@@ -53,9 +53,6 @@ const FruitTradingPanel: React.FC = () => {
   return (
     <div className="fruit-view-panel">
       <Card className="fruit-view-card">
-        <Title level={3} className="fruit-view-title">
-          Fruit View
-        </Title>
         <Form layout="horizontal" className="fruit-view-form" onSubmitCapture={(e) => e.preventDefault()}>
           <Form.Item label="Fruit" style={{ textAlign: "right" }}>
             <Select
