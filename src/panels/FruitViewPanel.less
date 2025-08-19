@@ -3,9 +3,9 @@
 .fruit-view-panel {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   min-height: 100%;
-  padding: 40px 0 32px 0;
+  padding: 10px 0 32px 0;
   background: linear-gradient(135deg, var(--background-color) 60%, var(--card-background) 100%);
   color: var(--text-color);
   transition: background 0.3s;
@@ -20,16 +20,17 @@
   box-shadow: 0 6px 32px 0 rgba(30, 40, 90, 0.18), 0 1.5px 6px 0 rgba(30, 40, 90, 0.1);
   min-width: 340px;
   max-width: 420px;
-  padding: 36px 32px 28px 32px;
+  // padding: 36px 32px 28px 32px;
   background: var(--card-background, #fff);
   color: var(--text-color);
   border: 1.5px solid rgba(80, 120, 200, 0.08);
   transition: box-shadow 0.2s, border 0.2s;
 }
-.fruit-view-card:hover {
-  box-shadow: 0 10px 40px 0 rgba(30, 40, 90, 0.22), 0 2px 8px 0 rgba(30, 40, 90, 0.13);
-  border: 1.5px solid rgba(80, 120, 200, 0.16);
-}
+
+// .fruit-view-card:hover {
+//   box-shadow: 0 10px 40px 0 rgba(30, 40, 90, 0.22), 0 2px 8px 0 rgba(30, 40, 90, 0.13);
+//   border: 1.5px solid rgba(80, 120, 200, 0.16);
+// }
 
 .fruit-view-title {
   margin-top: 0;
@@ -65,27 +66,6 @@
   text-align: center;
 }
 
-.fruit-view-list-item {
-  padding: 6px 0;
-  border-radius: 6px;
-  transition: background 0.2s;
-}
-.fruit-view-list-item:hover {
-  background: rgba(80, 120, 200, 0.07);
-}
-
-.fruit-view-fruit {
-  color: var(--fruit-label-color, #3e4a6b);
-  font-size: 16px;
-  font-family: "Fira Mono", "Consolas", monospace;
-}
-
-.fruit-view-fruit-amount {
-  color: var(--fruit-amount-color, #222);
-  font-weight: bold;
-  font-size: 16px;
-  padding-left: 2px;
-}
 
 // Light theme
 
@@ -99,7 +79,6 @@
 }
 
 // Dark theme
-
 .theme-dark .fruit-view-panel {
   --background-color: #1a2136;
   --text-color: #e0e0e0;

@@ -19,7 +19,7 @@ async function userRegister(values: AuthFormValues) {
 
 async function userLogin(values: AuthFormValues) {
   try {
-    const res = await APIClient.post("/", values);
+    const res = await APIClient.post("/login", values);
     const { token } = res.data;
     if (token) {
       localStorage.setItem("isLoggedIn", "true");

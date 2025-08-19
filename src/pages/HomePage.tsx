@@ -2,7 +2,7 @@ import React, { useState, FC, useEffect, useCallback } from "react";
 import ResizableDraggablePanel from "../components/ResizableDraggablePanel";
 import { MainWorkspace } from "../components/MainWorkspace";
 import TopNavBar from "../components/TopNavBar";
-import { panelList } from "../panelList";
+import { panelList } from "../panels/panelList";
 import { getGridCellPosition, monitorUserActivity } from "../utils/utils";
 import { useThemeStore } from "../store/themeStore";
 import { useDragAndDrop } from "../components/useDragAndDrop";
