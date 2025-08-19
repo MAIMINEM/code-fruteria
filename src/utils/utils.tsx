@@ -1,4 +1,4 @@
-import { GRID_COLS, GRID_ROWS, THEME_KEY } from "../constants/constants";
+import { GRID_COLS, GRID_ROWS } from "../constants/constants";
 
 /**
  * Calculates the position and size of a grid cell.
@@ -82,4 +82,13 @@ function throttle<T extends (...args: any[]) => void>(fn: T, wait: number): T {
   return throttled as T;
 }
 
-export { getGridCellPosition, getDefaultPanelPosition, monitorUserActivity, throttle };
+/**
+ * Generates a unique key string, optionally with a prefix.
+ * @param prefix Optional prefix for the key.
+ * @returns A unique key string.
+ */
+function generateUniqueKey(key: string): string {
+  return `${key}-${Date.now()}-${Math.random().toString(36).substr(2, 8)}`;
+}
+
+export { getGridCellPosition, getDefaultPanelPosition, monitorUserActivity, throttle, generateUniqueKey };
