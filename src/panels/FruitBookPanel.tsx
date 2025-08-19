@@ -3,6 +3,8 @@ import FruitEnrichmentPanel from "./FruitEnrichmentPanel";
 import ReactDOM from "react-dom";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef, ModuleRegistry, AllCommunityModule } from "ag-grid-community";
+
+import "./FruitBookPanel.less";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
@@ -101,18 +103,12 @@ const columnDefs: ColDef[] = [
     headerName: "Status",
     field: "status",
     minWidth: 120,
-    cellStyle: (params: any) => ({
-      color:
-        params.value === "Available"
-          ? "#7c5fe6"
-          : params.value === "Pending"
-            ? "#ffb300"
-            : "#e57373",
-      fontWeight: 700,
-      fontFamily: "monospace",
-      fontSize: 16,
-      background: "#232b3e",
-    }),
+    cellClass: (params: any) =>
+      params.value === "Available"
+        ? "fruit-book-status-available"
+        : params.value === "Pending"
+        ? "fruit-book-status-pending"
+        : "fruit-book-status-low",
   },
   { headerName: "Details", field: "details", minWidth: 180 },
 ];
@@ -142,30 +138,9 @@ const FruitBook: React.FC = () => {
 
   return (
     <>
-      <div style={{ padding: 0, background: "#232b3e", height: 600 }}>
-        <div
-          style={{
-            fontFamily: "monospace",
-            fontWeight: 700,
-            fontSize: 22,
-            color: "#fff",
-            background: "#232b3e",
-            padding: "16px 24px 10px 24px",
-            borderBottom: "1px solid #353b4a",
-            letterSpacing: 1,
-          }}
-        >
-          Fruit Book
-        </div>
-        <div
-          className="ag-theme-alpine"
-          style={{
-            height: 480,
-            width: "100%",
-            minWidth: 700,
-            border: "1px solid #7c5fe6",
-          }}
-        >
+      <div className="fruit-book-container">
+        <div className="fruit-book-title">Fruit Book</div>
+        <div className="ag-theme-alpine fruit-book-grid">
           <AgGridReact<any>
             theme="legacy"
             ref={gridRef}
@@ -177,22 +152,14 @@ const FruitBook: React.FC = () => {
             rowSelection={{ mode: "singleRow" }}
             onSelectionChanged={onSelectionChanged}
             onRowDoubleClicked={onRowDoubleClicked}
-            getRowStyle={(params) => {
+            getRowClass={(params) => {
               if (selectedFruit && params.data.id === selectedFruit.id) {
-                return {
-                  fontFamily: "monospace",
-                  fontSize: 16,
-                  color: "#fff",
-                  background: "#7c5fe6",
-                };
+                return "fruit-book-row-selected";
               }
-              return {
-                fontFamily: "monospace",
-                fontSize: 16,
-                color: "#f5f5f5",
-                background:
-                  params.node.rowIndex % 2 === 0 ? "#232b3e" : "#262f47",
-              };
+              return [
+                "fruit-book-row",
+                params.node.rowIndex % 2 === 0 ? "fruit-book-row-even" : "fruit-book-row-odd",
+              ].join(" ");
             }}
             suppressCellFocus={true}
           />
@@ -200,11 +167,8 @@ const FruitBook: React.FC = () => {
       </div>
       {selectedFruit &&
         ReactDOM.createPortal(
-          <FruitEnrichmentPanel
-            fruit={selectedFruit}
-            onClose={() => setSelectedFruit(null)}
-          />,
-          document.body,
+          <FruitEnrichmentPanel fruit={selectedFruit} onClose={() => setSelectedFruit(null)} />,
+          document.body
         )}
     </>
   );
