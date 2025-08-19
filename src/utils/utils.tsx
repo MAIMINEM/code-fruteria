@@ -91,4 +91,21 @@ function generateUniqueKey(key: string): string {
   return `${key}-${Date.now()}-${Math.random().toString(36).substr(2, 8)}`;
 }
 
-export { getGridCellPosition, getDefaultPanelPosition, monitorUserActivity, throttle, generateUniqueKey };
+/**
+ * Checks if the current user is logged in by verifying the presence of a valid auth token.
+ * @returns {boolean} True if logged in, false otherwise.
+ */
+function isUserLoggedIn(): boolean {
+  const token = localStorage.getItem("authToken");
+  // Optionally, add token validation/expiration check here
+  return !!token;
+}
+
+export {
+  getGridCellPosition,
+  getDefaultPanelPosition,
+  monitorUserActivity,
+  throttle,
+  generateUniqueKey,
+  isUserLoggedIn,
+};
