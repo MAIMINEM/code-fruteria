@@ -38,7 +38,7 @@ const UserPopover: React.FC<UserPopoverProps> = ({ userInfo, onCancel }) => {
         {userInfo.name}
       </Text>
       <br />
-      <Text type="secondary" className="user-popover-email">
+      <Text strong className="user-popover-email">
         {userInfo.email}
       </Text>
       <div className="user-popover-divider" />
@@ -49,7 +49,9 @@ const UserPopover: React.FC<UserPopoverProps> = ({ userInfo, onCancel }) => {
       <Button block className="user-popover-cancel-btn" onClick={onCancel}>
         Cancel
       </Button>
-      <ThemeToggleButton theme={theme} onToggle={handleThemeChange} />
+      <div className="user-popover-theme-toggle">
+        <ThemeToggleButton theme={theme} onToggle={handleThemeChange} />
+      </div>
     </div>
   );
 };

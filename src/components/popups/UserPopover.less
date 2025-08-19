@@ -1,7 +1,7 @@
 .user-popover-container {
   min-width: 280px;
   padding: 28px;
-  background: #1e212d;
+  background: var(--background-color);
   border-radius: 14px;
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.45);
   text-align: center;
@@ -39,22 +39,29 @@
 
 .user-popover-title {
   font-size: 18px;
-  color: #f5f6fa;
+  color: var(--text-color);
 }
 
 .user-popover-email {
   font-size: 14px;
-  color: #b0b4c1;
+  color: var(--text-color);
 }
 
 .user-popover-logout-text {
   margin-bottom: 16px;
   font-size: 15px;
-  color: #b0b4c1;
+  color: var(--text-color);
 }
 
 .user-popover-theme-label {
   margin-left: 8px;
-  color: #b0b4c1;
+  color: var(--text-color);
   font-size: 14px;
+}
+
+.user-popover-theme-toggle {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 2;
 }
