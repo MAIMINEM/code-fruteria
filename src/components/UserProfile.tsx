@@ -1,7 +1,10 @@
 import UserPopover from "./UserPopover";
 import React, { useState } from "react";
-import { Button } from "antd";
+
 import { UserOutlined } from "@ant-design/icons";
+
+import Button from "antd/es/button";
+import "antd/es/button/style";
 
 // Update the component signature:
 const UserProfile: React.FC = () => {

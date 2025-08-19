@@ -1,10 +1,13 @@
 import React from "react";
 import { Fruit } from "../../engine/MockFruitMachine";
-import { Typography, List } from "antd";
 import "./FruitInventoryItem.less";
-// Inventory section component
 
-const { Text } = Typography;
+import List from "antd/es/list"
+import Text from "antd/es/typography/Text";
+import "antd/es/list/style";
+import "antd/es/typography/style";
+
+// Inventory section component
 
 interface FruitInventoryItemProps {
   fruit: Fruit;

@@ -1,7 +1,9 @@
 import { useState, useCallback } from "react";
 import { DragEvent } from "react";
 
-import { message as antdMessage } from "antd";
+import antdMessage from "antd/es/message";
+import "antd/es/message/style";
+
 import { getDefaultPanelPosition, generateUniqueKey } from "../utils/utils";
 
 type OpenPanel = {

@@ -1,11 +1,24 @@
 import React, { useState, useCallback, useMemo } from "react";
-import { Form, Input, Button, Alert, Card } from "antd";
-import APIClient from "../Network/APIClient";
 import { useNavigate } from "react-router-dom";
 import { useThemeStore } from "../store/themeStore";
 import ThemeToggleButton from "../components/ThemeToggleButton";
 import "./LoginPage.less";
 import { AuthFormValues, UserRegister, UserLogin } from "../Network/Auth";
+
+import Button from "antd/es/button";
+import "antd/es/button/style";
+
+import Form from "antd/es/form";
+import "antd/es/form/style";
+
+import Input from "antd/es/input";
+import "antd/es/input/style";
+
+import Alert from "antd/es/alert";
+import "antd/es/alert/style";
+
+import Card from "antd/es/card";
+import "antd/es/card/style";
 
 const LoginPage: React.FC = React.memo(() => {
   const theme = useThemeStore((s) => s.theme);

@@ -1,10 +1,14 @@
 import React, { useCallback } from "react";
 import { useThemeStore } from "../store/themeStore";
-import { Button, Typography, Switch } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import ThemeToggleButton from "./ThemeToggleButton";
 import "./UserPopover.less";
+
+import Button from "antd/es/button";
+import Text from "antd/es/typography/Text";
+import "antd/es/button/style";
+import "antd/es/typography/style";
 
 export interface UserPopoverProps {
   userInfo: { name: string; email: string };
@@ -30,13 +34,13 @@ const UserPopover: React.FC<UserPopoverProps> = ({ userInfo, onCancel }) => {
 
   return (
     <div className="user-popover-container">
-      <Typography.Text strong className="user-popover-title">
+      <Text strong className="user-popover-title">
         {userInfo.name}
-      </Typography.Text>
+      </Text>
       <br />
-      <Typography.Text type="secondary" className="user-popover-email">
+      <Text type="secondary" className="user-popover-email">
         {userInfo.email}
-      </Typography.Text>
+      </Text>
 
       <div className="user-popover-divider" />
       <div className="user-popover-logout-text">Do you want to log out?</div>

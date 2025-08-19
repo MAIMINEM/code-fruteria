@@ -1,5 +1,5 @@
-import React, { useState, useRef, useMemo, useCallback } from "react";
-import FruitEnrichmentPanel from "./SelectedFruitDetailPopup";
+import React, { useState, useRef, useMemo, useCallback, Suspense } from "react";
+import SelectedFruitDetailPopup from "./SelectedFruitDetailPopup";
 import ReactDOM from "react-dom";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef, ModuleRegistry, AllCommunityModule } from "ag-grid-community";
@@ -69,7 +69,9 @@ const FruitInventoryPanel: React.FC = () => {
         </div>
         {selectedFruit &&
           ReactDOM.createPortal(
-            <FruitEnrichmentPanel fruit={selectedFruit} onClose={() => setSelectedFruit(null)} />,
+            <Suspense fallback={<div>Loading...</div>}>
+              <SelectedFruitDetailPopup fruit={selectedFruit} onClose={() => setSelectedFruit(null)} />
+            </Suspense>,
             document.body
           )}
       </div>

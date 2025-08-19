@@ -1,11 +1,12 @@
 import React from "react";
-import { Typography } from "antd";
+import Text from "antd/es/typography/Text";
+import "antd/es/typography/style";
 
 interface FruitBuySellStatusMessageProps {
   message: string;
 }
 
-const { Text } = Typography;
+// Removed destructuring, as Text is now imported directly
 
 const FruitBuySellStatusMessage: React.FC<FruitBuySellStatusMessageProps> = ({ message }) => {
   return (

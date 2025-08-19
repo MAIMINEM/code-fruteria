@@ -2,13 +2,33 @@
 import React, { useState } from "react";
 import { MockFruitMachine, Fruit } from "../../engine/MockFruitMachine";
 import { useInventoryStore } from "../store/inventoryStore";
-import { Card, Form, Select, InputNumber, Button, Typography, List, message as antdMessage } from "antd";
 import "./FruitTradingPanel.less";
 import FruitInventoryItem from "../components/FruitInventoryItem";
 import FruitBuySellStatusMessage from "../components/FruitBuySellStatusMessage";
 
-const { Option } = Select;
-const { Title } = Typography;
+import InputNumber from "antd/es/input-number";
+import "antd/es/input-number/style";
+
+import Select from "antd/es/select";
+import "antd/es/select/style";
+
+import Title from "antd/es/typography/Title";
+import "antd/es/typography/style";
+
+import List from "antd/es/list";
+import "antd/es/list/style";
+
+import antdMessage from "antd/es/message";
+import "antd/es/message/style";
+
+import Button from "antd/es/button";
+import "antd/es/button/style";
+
+import Form from "antd/es/form";
+import "antd/es/form/style";
+
+import Card from "antd/es/card";
+import "antd/es/card/style";
 
 const fruitList: Fruit[] = ["apple", "banana", "orange"];
 const machine = new MockFruitMachine();
@@ -61,9 +81,9 @@ const FruitTradingPanel: React.FC = () => {
               style={{ textAlign: "left", width: "200px" }}
             >
               {fruitList.map((fruit) => (
-                <Option key={fruit} value={fruit} style={{ textAlign: "left" }}>
+                <Select.Option key={fruit} value={fruit} style={{ textAlign: "left" }}>
                   {fruit}
-                </Option>
+                </Select.Option>
               ))}
             </Select>
           </Form.Item>
