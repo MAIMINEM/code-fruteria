@@ -9,9 +9,10 @@ import Button from "antd/es/button";
 import Text from "antd/es/typography/Text";
 import "antd/es/button/style";
 import "antd/es/typography/style";
+import { UserInfo } from "../../models/models";
 
 export interface UserPopoverProps {
-  userInfo: { name: string; email: string };
+  userInfo: UserInfo;
   onCancel: () => void;
 }
 
@@ -40,7 +41,6 @@ const UserPopover: React.FC<UserPopoverProps> = ({ userInfo, onCancel }) => {
       <Text type="secondary" className="user-popover-email">
         {userInfo.email}
       </Text>
-
       <div className="user-popover-divider" />
       <div className="user-popover-logout-text">Do you want to log out?</div>
       <Button type="primary" block className="user-popover-logout-btn" onClick={handleLogout}>
@@ -49,20 +49,7 @@ const UserPopover: React.FC<UserPopoverProps> = ({ userInfo, onCancel }) => {
       <Button block className="user-popover-cancel-btn" onClick={onCancel}>
         Cancel
       </Button>
-
       <ThemeToggleButton theme={theme} onToggle={handleThemeChange} />
-      {/* <div className="user-popover-theme-switch">
-        <Switch
-          checkedChildren={<CheckOutlined />}
-          unCheckedChildren={<CloseOutlined />}
-          checked={theme === "dark"}
-          onChange={toggleTheme}
-          defaultChecked={theme === "dark"}
-        />
-        <span className="user-popover-theme-label">
-          {theme === "dark" ? "Light" : "Dark"} Theme
-        </span>
-      </div> */}
     </div>
   );
 };

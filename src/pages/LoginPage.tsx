@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useThemeStore } from "../store/themeStore";
 import ThemeToggleButton from "../components/buttons/ThemeToggleButton";
 import "./LoginPage.less";
-import { AuthFormValues, UserRegister, UserLogin } from "../Network/Auth";
+import { AuthFormValues, UserRegister, UserLogin } from "../Network/AuthServices";
 
 import Button from "antd/es/button";
 import "antd/es/button/style";
