@@ -21,7 +21,6 @@ export const FruitViewPanel: React.FC = () => {
   const [message, setMessage] = useState("");
 
   // Handle buy action and update buy/sell message status
-
   const handleBuy = () => {
     machine.buy(selectedFruit, amount);
     const isPlural = amount > 1 ? "s" : "";
