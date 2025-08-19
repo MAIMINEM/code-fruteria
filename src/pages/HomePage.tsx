@@ -78,7 +78,7 @@ const HomePage: FC = () => {
 
   useEffect(() => {
     if (authToken == null) {
-      navigate("/login");
+      navigate("/");
     }
   }, [authToken]);
 

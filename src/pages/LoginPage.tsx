@@ -45,7 +45,7 @@ const LoginPage: React.FC = React.memo(() => {
       setLoading(true);
       const result = await UserLogin(values);
       if (result.success) {
-        navigate("/app");
+        navigate("/home");
       } else {
         setErrorMsg(result.message);
       }

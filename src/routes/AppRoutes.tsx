@@ -6,12 +6,12 @@ import NotFound from "../pages/NotFoundPage";
 
 const AppRoutes = createBrowserRouter([
   {
-    path: "/login",
+    path: "/",
     element: <LoginPage />,
     errorElement: <NotFound />,
   },
   {
-    path: "/app",
+    path: "/home",
     element: <HomePage />,
     errorElement: <NotFound />,
   },
