@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useThemeStore } from "../store/themeStore";
-import ThemeToggleButton from "../components/ThemeToggleButton";
+import ThemeToggleButton from "../components/buttons/ThemeToggleButton";
 import "./LoginPage.less";
 import { AuthFormValues, UserRegister, UserLogin } from "../Network/Auth";
 

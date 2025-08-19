@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
-import { useThemeStore } from "../store/themeStore";
+import { useThemeStore } from "../../store/themeStore";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import ThemeToggleButton from "./ThemeToggleButton";
+import ThemeToggleButton from "../buttons/ThemeToggleButton";
 import "./UserPopover.less";
 
 import Button from "antd/es/button";
@@ -12,7 +12,6 @@ import "antd/es/typography/style";
 
 export interface UserPopoverProps {
   userInfo: { name: string; email: string };
-  //   onLogout: () => void;
   onCancel: () => void;
 }
 

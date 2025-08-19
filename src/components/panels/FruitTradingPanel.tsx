@@ -1,10 +1,10 @@
 // Inventory list item component
 import React, { useState } from "react";
-import { MockFruitMachine, Fruit } from "../../engine/MockFruitMachine";
-import { useInventoryStore } from "../store/inventoryStore";
+import { MockFruitMachine, Fruit } from "../../../engine/MockFruitMachine";
+import { useInventoryStore } from "../../store/inventoryStore";
 import "./FruitTradingPanel.less";
-import FruitInventoryItem from "../components/FruitInventoryItem";
-import FruitBuySellStatusMessage from "../components/FruitBuySellStatusMessage";
+import FruitInventoryItem from "./FruitTradingListItem";
+import FruitBuySellStatusMessage from "./TradingStatusMessage";
 
 import InputNumber from "antd/es/input-number";
 import "antd/es/input-number/style";

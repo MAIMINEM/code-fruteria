@@ -11,7 +11,7 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 // Register ag-grid modules (required for module-based builds)
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-import { fakeFruitInventoryList, inventoryColumnDefs } from "../fakeData/FakeFruitInventoryData";
+import { fakeFruitInventoryList, inventoryColumnDefs } from "../../fakeData/FakeFruitInventoryData";
 
 const FruitInventoryPanel: React.FC = () => {
   const [selectedFruit, setSelectedFruit] = useState<any | null>(null);

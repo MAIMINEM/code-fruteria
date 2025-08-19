@@ -1,20 +1,20 @@
 import React from "react";
-import { Fruit } from "../../engine/MockFruitMachine";
-import "./FruitInventoryItem.less";
+import { Fruit } from "../../../engine/MockFruitMachine";
+import "./FruitTradingListItem.less";
 
-import List from "antd/es/list"
+import List from "antd/es/list";
 import Text from "antd/es/typography/Text";
 import "antd/es/list/style";
 import "antd/es/typography/style";
 
 // Inventory section component
 
-interface FruitInventoryItemProps {
+interface FruitTradingListItemProps {
   fruit: Fruit;
   amount: number;
 }
 
-const FruitInventoryItem: React.FC<FruitInventoryItemProps> = ({ fruit, amount }) => (
+const FruitTradingListItem: React.FC<FruitTradingListItemProps> = ({ fruit, amount }) => (
   <List.Item className="fruit-view-list-item">
     <Text className="fruit-view-fruit">{fruit}: </Text>
     <Text strong className="fruit-view-fruit-amount">
@@ -23,4 +23,4 @@ const FruitInventoryItem: React.FC<FruitInventoryItemProps> = ({ fruit, amount }
   </List.Item>
 );
 
-export default FruitInventoryItem;
+export default FruitTradingListItem;

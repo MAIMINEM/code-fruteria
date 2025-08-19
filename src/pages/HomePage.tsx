@@ -1,14 +1,14 @@
 import React, { useState, FC, useEffect, useCallback } from "react";
-import ResizableDraggablePanel from "../components/ResizableDraggablePanel";
-import { MainWorkspace } from "../components/MainWorkspace";
-import TopNavBar from "../components/TopNavBar";
+import ResizableDraggablePanel from "../components/dragAndDrop/ResizableDraggablePanel";
+import { MainWorkspace } from "../components/dragAndDrop/MainWorkspace";
+import TopNavBar from "../components/navBar/TopNavBar";
 import fakePanelList from "../fakeData/FakePanelListData";
 import { getGridCellPosition, monitorUserActivity } from "../utils/utils";
 import { useThemeStore } from "../store/themeStore";
-import { useDragAndDrop } from "../components/useDragAndDrop";
+import { useDragAndDrop } from "../components/dragAndDrop/useDragAndDrop";
 import { NAV_BAR_HEIGHT, INACTIVITY_LIMIT, THEME_KEY, GRID_COLS, GRID_ROWS } from "../constants/constants";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../components/SideNavBar";
+import SideNavbar from "../components/navBar/SideNavBar";
 import "./HomePage.less";
 
 /**
@@ -85,7 +85,7 @@ const HomePage: FC = () => {
   return (
     <div className={"home"}>
       {/* Navigation Bar */}
-      <Sidebar
+      <SideNavbar
         isOpen={navIsOpen}
         panelList={fakePanelList}
         dragNavPanelKey={dragNavPanelKey}

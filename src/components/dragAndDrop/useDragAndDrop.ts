@@ -4,7 +4,7 @@ import { DragEvent } from "react";
 import antdMessage from "antd/es/message";
 import "antd/es/message/style";
 
-import { getDefaultPanelPosition, generateUniqueKey } from "../utils/utils";
+import { getDefaultPanelPosition, generateUniqueKey } from "../../utils/utils";
 
 type OpenPanel = {
   id: string;

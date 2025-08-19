@@ -1,6 +1,6 @@
 import React from "react";
-import SunIcon from "../assets/Icons/SunIcon";
-import MoonIcon from "../assets/Icons/MoonIcon";
+import SunIcon from "../../assets/Icons/SunIcon";
+import MoonIcon from "../../assets/Icons/MoonIcon";
 
 interface ThemeToggleButtonProps {
   theme: string;
@@ -25,13 +25,7 @@ const ThemeToggleButton: React.FC<ThemeToggleButtonProps> = ({ theme, onToggle }
       fontSize: 0,
     }}
   >
-    {theme === "dark" ? (
-      // Sun icon
-      <SunIcon />
-    ) : (
-      // Moon icon
-      <MoonIcon />
-    )}
+    {theme === "dark" ? <SunIcon /> : <MoonIcon />}
   </button>
 );
 

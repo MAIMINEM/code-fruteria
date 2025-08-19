@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import TermsIcon from "../assets/Icons/TermsIcon";
-import AboutIcon from "../assets/Icons/AboutIcon";
-import FruitViewIcon from "../assets/Icons/FruitViewIcon";
+import TermsIcon from "../../assets/Icons/TermsIcon";
+import AboutIcon from "../../assets/Icons/AboutIcon";
+import FruitViewIcon from "../../assets/Icons/FruitViewIcon";
 interface SideNavBarProps {
   isOpen: boolean;
   panelList: any[];

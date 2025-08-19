@@ -7,7 +7,7 @@ import Button from "antd/es/button";
 import "antd/es/button/style";
 
 // Update the component signature:
-const UserProfile: React.FC = () => {
+const UserProfilePopup: React.FC = () => {
   const [showPopover, setShowPopover] = useState(false);
 
   // You can fetch/display real user info here if available
@@ -70,4 +70,4 @@ const UserProfile: React.FC = () => {
   );
 };
 
-export default UserProfile;
+export default UserProfilePopup;

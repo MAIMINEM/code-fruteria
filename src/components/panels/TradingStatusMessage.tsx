@@ -6,9 +6,7 @@ interface FruitBuySellStatusMessageProps {
   message: string;
 }
 
-// Removed destructuring, as Text is now imported directly
-
-const FruitBuySellStatusMessage: React.FC<FruitBuySellStatusMessageProps> = ({ message }) => {
+const TradingStatusMessage: React.FC<FruitBuySellStatusMessageProps> = ({ message }) => {
   return (
     <div>
       {message && (
@@ -25,4 +23,4 @@ const FruitBuySellStatusMessage: React.FC<FruitBuySellStatusMessageProps> = ({ m
   );
 };
 
-export default FruitBuySellStatusMessage;
+export default TradingStatusMessage;

@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import ResizableDraggablePanel from "../components/ResizableDraggablePanel";
+import ResizableDraggablePanel from "../dragAndDrop/ResizableDraggablePanel";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef } from "ag-grid-community";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import UserProfile from "./UserProfile";
+import UserProfile from "../popups/UserProfilePopup";
 import "./TopNavBar.less";
 
 interface TopNavBarProps {
@@ -33,9 +33,9 @@ const TopNavBar: React.FC<TopNavBarProps> = ({ navOpen, setNavOpen }) => (
       </span>
     </button>
     {/* App title */}
-  <span className="top-navbar-title">fruteria</span>
+    <span className="top-navbar-title">fruteria</span>
     {/* Spacer to push UserProfile to the right */}
-  <div className="top-navbar-spacer" />
+    <div className="top-navbar-spacer" />
     {/* UserProfile on the right */}
     <div className="top-navbar-profile">
       <UserProfile />

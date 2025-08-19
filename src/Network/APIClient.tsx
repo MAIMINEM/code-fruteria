@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 const APIClient = axios.create({
   baseURL: "http://localhost:3000/auth",

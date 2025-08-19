@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { throttle } from "../utils/utils"; // Adjust the import path as necessary
+import { throttle } from "../../utils/utils"; // Adjust the import path as necessary
 import { Rnd } from "react-rnd";
 
 type Props = {
