@@ -1,10 +1,10 @@
 import React, { useState, useRef, useMemo, useCallback } from "react";
-import FruitEnrichmentPanel from "./FruitEnrichmentPanel";
+import FruitEnrichmentPanel from "./SelectedFruitDetailPopup";
 import ReactDOM from "react-dom";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef, ModuleRegistry, AllCommunityModule } from "ag-grid-community";
 
-import "./FruitBookPanel.less";
+import "./FruitInventoryPanel.less";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 
@@ -13,7 +13,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 
 import { fruits, columnDefs } from "./FakeFruitBookData";
 
-const FruitBook: React.FC = () => {
+const FruitInventoryPanel: React.FC = () => {
   const [selectedFruit, setSelectedFruit] = useState<any | null>(null);
   const gridRef = useRef<any>(null);
 
@@ -43,7 +43,7 @@ const FruitBook: React.FC = () => {
       <div className={`fruit-book-flex`}>
         <div className="fruit-book-container">
           <div className="fruit-book-title-row">
-            <div className="fruit-book-title">Fruit Book</div>
+            <div className="fruit-book-title">Fruit Inventory</div>
           </div>
           <div className="ag-theme-alpine fruit-book-grid">
             <AgGridReact<any>
@@ -80,4 +80,4 @@ const FruitBook: React.FC = () => {
   );
 };
 
-export default FruitBook;
+export default FruitInventoryPanel;

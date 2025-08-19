@@ -2,8 +2,10 @@ import React, { useState, useMemo } from "react";
 import ResizableDraggablePanel from "../components/ResizableDraggablePanel";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef } from "ag-grid-community";
+
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import "./SelectedFruitDetailPopup.less";
 
 /**
  * Props for FruitEnrichmentPanel.
@@ -18,7 +20,7 @@ interface FruitEnrichmentPanelProps {
  * @param fruit The fruit object to display details for.
  * @param onClose Callback to close the panel.
  */
-const FruitEnrichmentPanel: React.FC<FruitEnrichmentPanelProps> = ({ fruit, onClose }) => {
+const SelectedFruitDetailPopup: React.FC<FruitEnrichmentPanelProps> = ({ fruit, onClose }) => {
   const [panelState, setPanelState] = useState({
     x: 200,
     y: 120,
@@ -94,20 +96,10 @@ const FruitEnrichmentPanel: React.FC<FruitEnrichmentPanelProps> = ({ fruit, onCl
   return (
     <ResizableDraggablePanel
       id={`fruit-enrichment-${fruit.id}`}
-      title={`${fruit.name} Enrichment`}
+      title={`${fruit.name} Details`}
       content={
-        <div style={{ height: "100%", width: "100%" }}>
-          <div
-            className="ag-theme-alpine"
-            style={{
-              height: panelState.height - 40,
-              width: "100%",
-              background: "#20263a",
-              borderRadius: 10,
-              fontSize: 15,
-              color: "#e0e6f5",
-            }}
-          >
+        <div className="fruit-enrichment-panel-outer">
+          <div className="ag-theme-alpine fruit-enrichment-panel-grid" style={{ height: panelState.height - 40 }}>
             <AgGridReact
               theme="legacy"
               columnDefs={columnDefs}
@@ -135,4 +127,4 @@ const FruitEnrichmentPanel: React.FC<FruitEnrichmentPanelProps> = ({ fruit, onCl
   );
 };
 
-export default FruitEnrichmentPanel;
+export default SelectedFruitDetailPopup;

@@ -1,10 +1,10 @@
 import React from "react";
-import FruitBookPanel from "./FruitBookPanel";
+import FruitInventoryPanel from "./FruitInventoryPanel";
 import AboutPanel from "./AboutPanel";
-import { FruitViewPanel } from "./FruitViewPanel";
+import FruitTradingPanel from "./FruitTradingPanel";
 
 export const panelList = [
-  { key: "fruitbook", title: "Fruit Book", content: <FruitBookPanel /> },
-  { key: "fruitview", title: "Fruit View", content: <FruitViewPanel /> },
+  { key: "fruitInventory", title: "Fruit Inventory", content: <FruitInventoryPanel /> },
+  { key: "fruitTrading", title: "Fruit Trading", content: <FruitTradingPanel /> },
   { key: "about", title: "About", content: <AboutPanel /> },
 ];

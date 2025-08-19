@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { MockFruitMachine, Fruit } from "../../engine/MockFruitMachine";
 import { useInventoryStore } from "../store/inventoryStore";
 import { Card, Form, Select, InputNumber, Button, Typography, List, message as antdMessage } from "antd";
-import "./FruitViewPanel.less";
+import "./FruitTradingPanel.less";
 import FruitInventoryItem from "../components/FruitInventoryItem";
 import FruitBuySellStatusMessage from "../components/FruitBuySellStatusMessage";
 
@@ -13,7 +13,7 @@ const { Title } = Typography;
 const fruitList: Fruit[] = ["apple", "banana", "orange"];
 const machine = new MockFruitMachine();
 
-export const FruitViewPanel: React.FC = () => {
+const FruitTradingPanel: React.FC = () => {
   const inventory = useInventoryStore((state) => state.inventory);
   const setInventory = useInventoryStore((state) => state.setInventory);
   const [selectedFruit, setSelectedFruit] = useState<Fruit>("apple");
@@ -97,3 +97,5 @@ export const FruitViewPanel: React.FC = () => {
     </div>
   );
 };
+
+export default FruitTradingPanel;

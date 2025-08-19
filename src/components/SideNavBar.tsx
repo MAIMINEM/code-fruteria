@@ -71,9 +71,9 @@ const SideNavBar: React.FC<SideNavBarProps> = ({
                 title={panel.title}
               >
                 <span style={{ marginBottom: 4 }}>
-                  {panel.key === "fruitbook" ? (
+                  {panel.key === "fruitInventory" ? (
                     <TermsIcon />
-                  ) : panel.key === "fruitview" ? (
+                  ) : panel.key === "fruitTrading" ? (
                     <FruitViewIcon />
                   ) : panel.key === "about" ? (
                     <AboutIcon />
